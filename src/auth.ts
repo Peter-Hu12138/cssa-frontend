@@ -12,7 +12,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const res = await fetch("http://localhost:8000/api/v1/token/", {
             method: "POST",
-            body: JSON.stringify(credentials),
+            body: JSON.stringify({
+              email: credentials.username,
+              password: credentials.password,
+            }),
             headers: { "Content-Type": "application/json" },
           })
 

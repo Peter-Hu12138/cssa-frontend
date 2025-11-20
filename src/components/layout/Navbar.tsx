@@ -40,9 +40,11 @@ export async function Navbar() {
                   Login
                 </Button>
               </Link>
-              <Button className="bg-primary text-white hover:bg-primary-dark">
-                Join Us
-              </Button>
+              <Link href="/signup">
+                <Button className="bg-primary text-white hover:bg-primary-dark">
+                  Join Us
+                </Button>
+              </Link>
             </>
           )}
         </div>
