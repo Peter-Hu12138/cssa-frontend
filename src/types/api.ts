@@ -35,6 +35,15 @@ export interface Article {
   created_at: string; // format: date-time
 }
 
+export interface ExternalLink {
+  id: number;
+  name: string;
+  slug: string;
+  url: string;
+  icon_name: string;
+  order: number;
+}
+
 export interface Department {
   id: number;
   name: string;
