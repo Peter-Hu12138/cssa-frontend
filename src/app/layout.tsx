@@ -35,10 +35,10 @@ export default function RootLayout({
 
           <Navbar />
 
-          {/* Main Content */}
-          <main className="flex-grow container mx-auto px-4 py-8">
+          {/* Main Content - Full Width to allow pages to control their own layout */}
+          <div className="flex-grow flex flex-col">
             {children}
-          </main>
+          </div>
 
           {/* Footer Placeholder */}
           <footer className="bg-white border-t border-gray-100 py-12 mt-auto">

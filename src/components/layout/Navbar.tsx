@@ -6,21 +6,65 @@ export async function Navbar() {
   const session = await auth();
 
   return (
-    <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="font-bold text-xl tracking-tight text-primary">
-          ASSOCIATION PORTAL
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+        {/* Logo Area */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 bg-primary text-white flex items-center justify-center font-bold text-xl rounded-sm">
+            C
+          </div>
+          <span className="font-bold text-xl tracking-wide text-gray-900 group-hover:text-primary transition-colors">
+            CSSA
+          </span>
         </Link>
-        <nav className="hidden md:flex space-x-6 text-sm font-medium text-gray-600">
-          <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-          <Link href="/departments" className="hover:text-primary transition-colors">Departments</Link>
-          <Link href="/events" className="hover:text-primary transition-colors">Events</Link>
-          <Link href="/jobs" className="hover:text-primary transition-colors">Jobs</Link>
-          <Link href="/acknowledgements" className="hover:text-primary transition-colors">About</Link>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-8">
+          <Link 
+            href="/" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            Home
+          </Link>
+          <Link 
+            href="/departments" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            Departments
+          </Link>
+          <Link 
+            href="/events" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            Events
+          </Link>
+          <Link 
+            href="/about" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            About
+          </Link>
+          
+          {/* Protected Links */}
           {session && (
-             <Link href="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link>
+            <>
+              <Link 
+                href="/jobs" 
+                className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+              >
+                Jobs
+              </Link>
+              <Link 
+                href="/dashboard" 
+                className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+              >
+                Dashboard
+              </Link>
+            </>
           )}
         </nav>
+
+        {/* Auth Buttons */}
         <div className="flex items-center space-x-4">
           {session ? (
             <form
@@ -29,19 +73,19 @@ export async function Navbar() {
                 await signOut();
               }}
             >
-              <Button variant="ghost" type="submit">
+              <Button variant="ghost" type="submit" className="text-sm font-bold uppercase tracking-wider text-gray-600 hover:text-primary">
                 Sign Out
               </Button>
             </form>
           ) : (
             <>
               <Link href="/login">
-                <Button variant="ghost" className="text-primary hover:bg-red-50">
+                <Button variant="ghost" className="text-sm font-bold uppercase tracking-wider text-gray-600 hover:text-primary hover:bg-transparent">
                   Login
                 </Button>
               </Link>
               <Link href="/signup">
-                <Button className="bg-primary text-white hover:bg-primary-dark">
+                <Button className="bg-primary text-white hover:bg-primary-dark text-sm font-bold uppercase tracking-wider px-6 rounded-none">
                   Join Us
                 </Button>
               </Link>

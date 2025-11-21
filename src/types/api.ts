@@ -79,6 +79,7 @@ export interface Event {
   eventdate?: string; // format: date-time
   eventEndTime?: string; // format: date-time
   status?: StatusEnum;
+  image?: string | null; // Added for frontend compatibility
   created_at: string; // format: date-time
   updated_at: string; // format: date-time
   attachments: EventAttachment[];
