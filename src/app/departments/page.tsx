@@ -78,7 +78,7 @@ export default function DepartmentsPage() {
   const tree = buildDepartmentTree(departments);
 
   return (
-    <div className="container mx-auto py-12 px-4 max-w-5xl">
+    <div className="container mx-auto pb-12 pt-24 px-4 max-w-5xl">
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <FolderTree className="mr-3 h-10 w-10 text-primary" />
