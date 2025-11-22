@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Event, PaginatedResponse } from "@/types/api";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { API_URL } from "@/lib/config";
 
 async function fetchEvents(): Promise<Event[]> {
   const response = await fetch(`${API_URL}/api/v1/events/events/`);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { API_URL } from '@/lib/config';
 
 interface RichTextRendererProps {
   content: string;
@@ -12,7 +13,7 @@ export default function RichTextRenderer({ content, className = '' }: RichTextRe
   
   const processedContent = content.replace(
     /src="\/media\//g,
-    `src="${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/media/`
+    `src="${API_URL}/media/`
   );
 
   return (

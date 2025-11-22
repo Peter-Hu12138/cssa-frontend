@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { ExternalLink, PaginatedResponse } from "@/types/api";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { API_URL } from "@/lib/config";
 
 async function fetchExternalLinks(): Promise<ExternalLink[]> {
   try {

@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { API_URL } from "@/lib/config";
 
 // Default fallback links
 const DEFAULT_LINKS = [
@@ -50,8 +51,6 @@ const DEFAULT_LINKS = [
     order: 4,
   },
 ];
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export function FloatingSocials() {
   const { data: fetchedLinks } = useExternalLinks();
