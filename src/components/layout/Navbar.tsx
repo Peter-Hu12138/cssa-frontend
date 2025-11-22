@@ -1,10 +1,7 @@
 import Link from "next/link";
-import { auth, signOut } from "@/auth";
 import { Button } from "@/components/ui/button";
 
-export async function Navbar() {
-  const session = await auth();
-
+export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -44,53 +41,11 @@ export async function Navbar() {
           >
             About
           </Link>
-          
-          {/* Protected Links */}
-          {session && (
-            <>
-              <Link 
-                href="/jobs" 
-                className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
-              >
-                Jobs
-              </Link>
-              <Link 
-                href="/dashboard" 
-                className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
-              >
-                Dashboard
-              </Link>
-            </>
-          )}
         </nav>
 
-        {/* Auth Buttons */}
+        {/* Auth Buttons - Removed for static site */}
         <div className="flex items-center space-x-4">
-          {session ? (
-            <form
-              action={async () => {
-                "use server";
-                await signOut();
-              }}
-            >
-              <Button variant="ghost" type="submit" className="text-sm font-bold uppercase tracking-wider text-gray-600 hover:text-primary">
-                Sign Out
-              </Button>
-            </form>
-          ) : (
-            <>
-              <Link href="/login">
-                <Button variant="ghost" className="text-sm font-bold uppercase tracking-wider text-gray-600 hover:text-primary hover:bg-transparent">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/signup">
-                <Button className="bg-primary text-white hover:bg-primary-dark text-sm font-bold uppercase tracking-wider px-6 rounded-none">
-                  Join Us
-                </Button>
-              </Link>
-            </>
-          )}
+            {/* Placeholder for future buttons if needed */}
         </div>
       </div>
     </header>

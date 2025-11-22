@@ -27,9 +27,9 @@ export default function Home() {
             Building bridges, fostering growth, and creating a home away from home for students.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/signup">
+            <Link href="/events">
               <Button className="bg-primary hover:bg-primary-dark text-white px-8 py-6 text-lg font-bold uppercase tracking-widest rounded-none w-full sm:w-auto">
-                Join Us
+                View Events
               </Button>
             </Link>
             <Link href="/about">
