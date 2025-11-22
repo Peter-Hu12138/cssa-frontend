@@ -14,67 +14,61 @@ import {
 
 const DEPARTMENTS = [
   {
-    id: "secretariat",
-    title: "Secretariat",
-    description: "The backbone of CSSA, managing internal operations, archives, and ensuring organizational efficiency.",
-    icon: <FileText className="w-8 h-8" />,
+    id: "internal",
+    title: "Internal Division",
+    description: "The 'shopkeepers' of our family. Includes Activity, HR, and Logistics departments. We maintain the daily operations and ensure everything runs smoothly.",
+    icon: <Users className="w-8 h-8" />,
   },
   {
-    id: "events",
-    title: "Event Planning",
-    description: "Curating unforgettable experiences, from the annual Gala to cultural festivals and student mixers.",
-    icon: <Calendar className="w-8 h-8" />,
-  },
-  {
-    id: "pr",
-    title: "Public Relations",
-    description: "The voice of CSSA. We manage social media, content creation, and external communications.",
+    id: "external",
+    title: "External Division",
+    description: "The bridge to the outside world. Includes Sponsorship and Public Relations. We organize major events like the Spring Gala and build professional networks.",
     icon: <Megaphone className="w-8 h-8" />,
   },
   {
-    id: "it",
-    title: "IT & Development",
-    description: "Building digital bridges. We maintain the website, develop tools, and provide technical support.",
-    icon: <Code className="w-8 h-8" />,
-  },
-  {
-    id: "finance",
-    title: "Finance",
-    description: "Ensuring fiscal responsibility, managing budgets, and securing sponsorships for our initiatives.",
+    id: "executive",
+    title: "Executive Division",
+    description: "The creative and technical hub. Includes Finance, Marketing, and Media. We manage the organization's 'lifeline' and amplify our voice through design and content.",
     icon: <PieChart className="w-8 h-8" />,
   },
   {
-    id: "hr",
-    title: "Human Resources",
-    description: "Fostering a welcoming community, managing recruitment, and supporting member growth.",
-    icon: <Users className="w-8 h-8" />,
+    id: "general",
+    title: "General Affairs",
+    description: "Supporting student life and academic success. We are dedicated to creating a supportive environment for all members.",
+    icon: <FileText className="w-8 h-8" />,
   },
 ];
 
 const EXECUTIVES = [
   {
     id: 1,
-    name: "Alex Zhang",
-    role: "President",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
+    name: "Nathan Jia & Mikaela Zhang",
+    role: "Co-Presidents",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop", // Placeholder
   },
   {
     id: 2,
-    name: "Sarah Chen",
+    name: "Marcos Chang",
     role: "VP Internal",
-    image: "https://images.unsplash.com/photo-1573496359-136d47552640?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1573496359-136d47552640?q=80&w=1000&auto=format&fit=crop", // Placeholder
   },
   {
     id: 3,
-    name: "Michael Wang",
+    name: "Zane Huang",
     role: "VP External",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop", // Placeholder
   },
   {
     id: 4,
-    name: "Jessica Liu",
-    role: "VP Finance",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop",
+    name: "Esther Wang",
+    role: "VP Executive",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1000&auto=format&fit=crop", // Placeholder
+  },
+  {
+    id: 5,
+    name: "Brian Guo",
+    role: "VP General Affairs",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop", // Placeholder
   },
 ];
 
@@ -147,17 +141,17 @@ export default function AboutPage() {
           </div>
           
           <blockquote className="text-3xl md:text-4xl font-serif text-gray-900 leading-relaxed italic">
-            "To serve as a bridge between Chinese students and the broader university community, fostering an environment of mutual understanding, growth, and cultural exchange."
+            "To be a warm harbor for Chinese students at UofT. 'As a tree through the ages' - we wish to be like a towering tree, sheltering students from wind and rain."
           </blockquote>
           
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="p-6">
-              <div className="text-4xl font-bold text-primary mb-2">3000+</div>
+              <div className="text-4xl font-bold text-primary mb-2">10,000+</div>
               <div className="text-gray-500 uppercase tracking-wider text-xs font-bold">Members</div>
             </div>
             <div className="p-6 border-l border-r border-gray-100">
-              <div className="text-4xl font-bold text-primary mb-2">40+</div>
-              <div className="text-gray-500 uppercase tracking-wider text-xs font-bold">Annual Events</div>
+              <div className="text-4xl font-bold text-primary mb-2">42</div>
+              <div className="text-gray-500 uppercase tracking-wider text-xs font-bold">Years of History</div>
             </div>
             <div className="p-6">
               <div className="text-4xl font-bold text-primary mb-2">1982</div>
@@ -174,7 +168,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Departments</h2>
             <div className="w-20 h-1 bg-primary mx-auto" />
             <p className="mt-4 text-gray-500 max-w-2xl mx-auto">
-              Our organization is powered by six dedicated departments, each playing a vital role in our success.
+              Our organization is structured into four main divisions, each dedicated to serving the community in unique ways.
             </p>
           </div>
 
@@ -213,7 +207,9 @@ export default function AboutPage() {
           <div className="mt-16 text-center">
             <p className="text-gray-500 mb-6">Interested in joining our team?</p>
             <button className="bg-white text-primary border-2 border-primary px-8 py-3 font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300">
-              View Openings
+              <a href={`/team`}>
+                Meet the Team
+              </a>
             </button>
           </div>
         </div>

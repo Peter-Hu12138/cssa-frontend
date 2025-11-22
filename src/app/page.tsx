@@ -41,6 +41,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* FRESHMAN GUIDE SECTION */}
+      <section className="py-20 bg-primary text-white">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="md:w-1/2">
+            <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tight mb-6">
+              New to UofT?
+            </h2>
+            <p className="text-lg text-white/90 mb-8 leading-relaxed">
+              Get your copy of the 2024 Freshman Guide. It's your essential survival manual covering everything from course selection and housing to the best food spots in Toronto.
+            </p>
+            <Link href="/guides">
+              <Button className="bg-white text-primary hover:bg-gray-100 px-8 py-6 text-lg font-bold uppercase tracking-widest rounded-none">
+                Download Guide <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+          </div>
+          <div className="md:w-1/2 flex justify-center">
+            <div className="relative w-64 h-80 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-lg p-4 rotate-3 hover:rotate-0 transition-transform duration-500">
+              <div className="w-full h-full bg-white/5 flex items-center justify-center border border-white/10">
+                <span className="text-2xl font-bold uppercase tracking-widest opacity-50">2024 Guide</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* EVENTS SECTION */}
       <EventsGrid />
 
@@ -84,51 +110,27 @@ export default function Home() {
 // Mock Data for Departments
 const DEPARTMENTS = [
   {
-    title: "Arts & Culture",
-    description: "Promoting Chinese culture through artistic expression, performances, and cultural exhibitions on campus.",
-    link: "/departments/arts",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-    )
-  },
-  {
-    title: "Career Development",
-    description: "Connecting students with professional opportunities, mentorship programs, and industry leaders.",
-    link: "/departments/career",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-    )
-  },
-  {
-    title: "External Relations",
-    description: "Building strong partnerships with external organizations, sponsors, and the broader community.",
-    link: "/departments/external",
+    title: "Internal Division",
+    description: "The backbone of our operations. Managing activities, human resources, and logistics to keep the organization running smoothly.",
+    link: "/about",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
     )
   },
   {
-    title: "Internal Operations",
-    description: "Ensuring smooth organizational efficiency, member management, and logistical support.",
-    link: "/departments/internal",
+    title: "External Division",
+    description: "Building bridges. Responsible for public relations, sponsorships, and organizing major external events like the Spring Gala.",
+    link: "/about",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
     )
   },
   {
-    title: "Marketing & Media",
-    description: "Creating engaging content, managing social media presence, and promoting our events.",
-    link: "/departments/marketing",
+    title: "Executive Division",
+    description: "The creative engine. Handling finance, marketing, and media production to amplify our voice and ensure sustainability.",
+    link: "/about",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 18h.01"/><path d="M16 18h.01"/><path d="M20 18h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M20 14h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M20 10h.01"/><path d="m2 2 20 20"/><path d="M2 22 22 2"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
     )
   },
-  {
-    title: "Sports & Recreation",
-    description: "Organizing tournaments, recreational activities, and promoting a healthy lifestyle.",
-    link: "/departments/sports",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-    )
-  }
 ];

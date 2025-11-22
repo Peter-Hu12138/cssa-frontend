@@ -171,3 +171,34 @@ export interface Job {
   approval_history: JobApproval[];
   sub_jobs?: { id: number; name: string; status: string }[];
 }
+
+export interface TeamMember {
+  id: number;
+  full_name: string;
+  short_name: string;
+  role_within_department: RoleWithinDepartmentEnum;
+  role_display: string;
+  title: TitleEnum;
+  title_display: string;
+  avatar: string | null;
+  bio: string;
+  email: string;
+}
+
+export interface Guide {
+  id: number;
+  title: string;
+  year: number;
+  cover_image: string | null;
+  file: string;
+  description: string;
+  created_at: string;
+}
+
+export interface DepartmentTeam {
+  id: number;
+  name: string;
+  english_name: string;
+  order: number;
+  members: TeamMember[];
+}

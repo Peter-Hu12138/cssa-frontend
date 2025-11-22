@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import * as LucideIcons from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, ensureAbsoluteUrl } from "@/lib/utils";
 import { useExternalLinks } from "@/hooks/useExternalLinks";
 import {
   Dialog,
@@ -12,45 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { API_URL } from "@/lib/config";
-
-// Default fallback links
-const DEFAULT_LINKS = [
-  {
-    name: "Instagram",
-    icon_name: "Instagram",
-    url: "https://instagram.com/uoftcssa",
-    slug: "instagram",
-    order: 0,
-  },
-  {
-    name: "WeChat",
-    icon_name: "MessageCircle",
-    url: "uoftcssa", // Treated as WeChat ID
-    slug: "wechat",
-    order: 1,
-  },
-  {
-    name: "LinkedIn",
-    icon_name: "Linkedin",
-    url: "https://www.linkedin.com/company/uoft-cssa",
-    slug: "linkedin",
-    order: 2,
-  },
-  {
-    name: "Website",
-    icon_name: "Globe",
-    url: "https://cssa.ca",
-    slug: "website",
-    order: 3,
-  },
-  {
-    name: "Email",
-    icon_name: "Mail",
-    url: "mailto:contact@cssa.ca",
-    slug: "email",
-    order: 4,
-  },
-];
+import { DEFAULT_LINKS } from "@/lib/links";
 
 export function FloatingSocials() {
   const { data: fetchedLinks } = useExternalLinks();
@@ -95,9 +57,9 @@ export function FloatingSocials() {
           return (
             <a
               key={link.slug || link.name}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={link.slug === "wechat" ? "#" : ensureAbsoluteUrl(link.url)}
+              target={link.slug === "wechat" ? undefined : "_blank"}
+              rel={link.slug === "wechat" ? undefined : "noopener noreferrer"}
               onClick={(e) => handleLinkClick(e, link)}
               className={cn(
                 "w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg transition-transform hover:scale-110",

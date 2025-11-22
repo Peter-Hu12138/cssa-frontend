@@ -41,11 +41,27 @@ export function Navbar() {
           >
             About
           </Link>
+          <Link 
+            href="/team" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            Team
+          </Link>
+          <Link 
+            href="/guides" 
+            className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
+          >
+            Guides
+          </Link>
         </nav>
 
         {/* Auth Buttons - Removed for static site */}
         <div className="flex items-center space-x-4">
-            {/* Placeholder for future buttons if needed */}
+          <Link href="/join">
+            <Button className="bg-primary text-white hover:bg-primary-dark text-sm font-bold uppercase tracking-wider px-6 rounded-none">
+              Join Us
+            </Button>
+          </Link>
         </div>
       </div>
     </header>
