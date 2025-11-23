@@ -5,9 +5,11 @@ import EventCard from "@/components/ui/EventCard";
 import { useEvents } from "@/hooks/useEvents";
 import EventCardSkeleton from "@/components/ui/EventCardSkeleton";
 import Link from "next/link";
+import { useTranslation } from "@/app/i18n/client";
 
-export default function EventsGrid() {
+export default function EventsGrid({ lng }: { lng: string }) {
   const { data: events, isLoading, isError } = useEvents();
+  const { t } = useTranslation(lng, "EventsGrid", {});
 
   // Slice to show only the latest 3 events for the homepage
   const displayedEvents = events ? events.slice(0, 3) : [];
@@ -19,7 +21,7 @@ export default function EventsGrid() {
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-widest text-gray-900 mb-4">
-              Upcoming Events
+              {t("upcomingEvents")}
             </h2>
             <div className="w-20 h-1 bg-primary" />
           </div>
@@ -27,7 +29,7 @@ export default function EventsGrid() {
             href="/events" 
             className="text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-primary transition-colors flex items-center gap-2"
           >
-            View All Events
+            {t("viewAllEvents")}
             <span className="text-lg">→</span>
           </Link>
         </div>
@@ -41,15 +43,15 @@ export default function EventsGrid() {
             ))
           ) : isError ? (
             <div className="col-span-full text-center py-12 text-gray-500">
-              <p>Failed to load events. Please try again later.</p>
+              <p>{t("loadError")}</p>
             </div>
           ) : displayedEvents.length > 0 ? (
             displayedEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard key={event.id} event={event} lng={lng} />
             ))
           ) : (
             <div className="col-span-full text-center py-12 text-gray-500">
-              <p>No upcoming events at the moment. Stay tuned!</p>
+              <p>{t("noEvents")}</p>
             </div>
           )}
         </div>

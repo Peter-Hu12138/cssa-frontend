@@ -13,23 +13,25 @@ import {
 } from "@/components/ui/dialog";
 import { API_URL } from "@/lib/config";
 import { DEFAULT_LINKS } from "@/lib/links";
+import { useTranslation } from "@/app/i18n/client";
 
-export function FloatingSocials() {
+export function FloatingSocials({ lng }: { lng: string }) {
   const { data: fetchedLinks } = useExternalLinks();
   const [weChatOpen, setWeChatOpen] = useState(false);
   const [weChatId, setWeChatId] = useState("");
+  const { t } = useTranslation(lng, "FloatingSocials", {});
 
   const activeLinks = useMemo(() => {
     // Start with a map of defaults for easy lookup/replacement
     const linkMap = new Map<string, any>();
-    
-    DEFAULT_LINKS.forEach(link => {
+
+    DEFAULT_LINKS.forEach((link) => {
       if (link.slug) linkMap.set(link.slug, link);
     });
 
     // Merge fetched links
     if (fetchedLinks) {
-      fetchedLinks.forEach(link => {
+      fetchedLinks.forEach((link) => {
         // This will replace existing default if slug matches, or add new one
         linkMap.set(link.slug, link);
       });
@@ -76,9 +78,9 @@ export function FloatingSocials() {
       <Dialog open={weChatOpen} onOpenChange={setWeChatOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Follow us on WeChat</DialogTitle>
+            <DialogTitle>{t("weChatTitle")}</DialogTitle>
             <DialogDescription>
-              WeChat is a closed platform. Please open your WeChat app and search for the ID below:
+              {t("weChatDesc")}
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center py-4 space-y-4">
@@ -86,7 +88,7 @@ export function FloatingSocials() {
               {weChatId}
             </div>
             <p className="text-sm text-muted-foreground">
-              (Click text to select)
+              {t("clickToSelect")}
             </p>
           </div>
         </DialogContent>

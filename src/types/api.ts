@@ -30,7 +30,9 @@ export type JobStatusEnum = 'PENDING' | 'APPROVED' | 'REJECTED' | 'PENDING_COMPL
 export interface Article {
   id: number;
   title: string;
+  title_en?: string;
   content: string;
+  content_en?: string;
   image?: string | null; // format: uri
   created_at: string; // format: date-time
 }
@@ -50,6 +52,8 @@ export interface Department {
   english_name?: string;
   super_department?: number | null;
   super_department_name: string;
+  description?: string;
+  description_en?: string;
 }
 
 export interface MemberPublic {
@@ -66,6 +70,13 @@ export interface MemberPublic {
   program?: string | null;
   year_of_study?: number | null;
   student_status?: string;
+  avatar?: string | null;
+  bio?: string;
+  bio_en?: string;
+  email?: string;
+  linkedin_url?: string;
+  wechat_id?: string;
+  github_url?: string;
 }
 
 export interface EventAttachment {
@@ -80,7 +91,9 @@ export interface Event {
   id: number;
   uuid?: string; // format: uuid
   name: string;
+  name_en?: string;
   description: string;
+  description_en?: string;
   department_in_charge: number;
   department_in_charge_detail: Department;
   leader: number;
@@ -182,16 +195,22 @@ export interface TeamMember {
   title_display: string;
   avatar: string | null;
   bio: string;
-  email: string;
+  bio_en?: string;
+  email?: string;
+  linkedin_url?: string;
+  wechat_id?: string;
+  github_url?: string;
 }
 
 export interface Guide {
   id: number;
   title: string;
+  title_en?: string;
   year: number;
   cover_image: string | null;
   file: string;
   description: string;
+  description_en?: string;
   created_at: string;
 }
 
@@ -200,5 +219,7 @@ export interface DepartmentTeam {
   name: string;
   english_name: string;
   order: number;
+  description: string;
+  description_en?: string;
   members: TeamMember[];
 }

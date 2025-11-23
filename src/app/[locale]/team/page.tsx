@@ -8,10 +8,10 @@ import { Mail, Linkedin, Github, MessageCircle } from "lucide-react";
 import { API_URL } from "@/lib/config";
 import { useTranslation } from "@/app/i18n/client";
 
-export default function TeamPage() {
-  const { t, i18n } = useTranslation(undefined, "Team", {});
-  const locale = i18n.resolvedLanguage || "en";
+export default function TeamPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const { data: departments, isLoading } = useTeam();
+  const { t } = useTranslation(locale, "Team", {});
 
   if (isLoading) {
     return (

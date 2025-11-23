@@ -1,7 +1,8 @@
 "use client";
 
+import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { 
   ArrowLeft, 
@@ -29,11 +30,10 @@ async function fetchMember(id: string): Promise<MemberPublic> {
   return res.json();
 }
 
-export default function MemberProfilePage() {
-  const params = useParams();
-  const id = params.id as string;
+export default function MemberProfilePage({ params }: { params: Promise<{ locale: string; id: string }> }) {
+  const { locale, id } = use(params);
   const router = useRouter();
-  const { t, i18n } = useTranslation(undefined, "MemberProfile", {});
+  const { t } = useTranslation(locale, "MemberProfile", {});
 
   const { data: member, isLoading, isError } = useQuery({
     queryKey: ["member", id],
@@ -66,14 +66,14 @@ export default function MemberProfilePage() {
 
   const getRoleBadge = (role?: string) => {
     switch (role) {
-      case "HD": return <Badge className="bg-red-600">{t("roles.HD")}</Badge>;
-      case "DH": return <Badge variant="secondary" className="bg-red-100 text-red-800">{t("roles.DH")}</Badge>;
+      case 'HD': return <Badge className="bg-red-600">{t("roles.HD")}</Badge>;
+      case 'DH': return <Badge variant="secondary" className="bg-red-100 text-red-800">{t("roles.DH")}</Badge>;
       default: return <Badge variant="outline">{t("roles.Member")}</Badge>;
     }
   };
 
-  const bio = i18n.language === "en" && member.bio_en ? member.bio_en : member.bio;
-  
+  const bio = locale === "en" && member.bio_en ? member.bio_en : member.bio;
+
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <Button 
@@ -191,8 +191,8 @@ export default function MemberProfilePage() {
                 <div className="flex justify-between py-2">
                   <span className="text-gray-500 text-sm">{t("labels.role")}</span>
                   <span className="font-medium text-gray-900">
-                    {member.role_within_department === "HD" ? t("roles.HD") : 
-                     member.role_within_department === "DH" ? t("roles.DH") : t("roles.Member")}
+                    {member.role_within_department === 'HD' ? t("roles.HD") : 
+                     member.role_within_department === 'DH' ? t("roles.DH") : t("roles.Member")}
                   </span>
                 </div>
               </div>

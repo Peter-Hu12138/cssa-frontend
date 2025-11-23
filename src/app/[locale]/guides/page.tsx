@@ -8,10 +8,10 @@ import { Download, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/app/i18n/client";
 
-export default function GuidesPage() {
-  const { t, i18n } = useTranslation(undefined, "Guides", {});
-  const locale = i18n.resolvedLanguage || "en";
+export default function GuidesPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const { data: guides, isLoading } = useGuides();
+  const { t } = useTranslation(locale, "Guides", {});
 
   if (isLoading) {
     return (

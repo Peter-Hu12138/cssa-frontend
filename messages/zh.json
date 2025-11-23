@@ -1,0 +1,155 @@
+{
+  "Navigation": {
+    "home": "首页",
+    "departments": "部门",
+    "about": "关于我们",
+    "team": "团队",
+    "events": "活动",
+    "guides": "新生手册",
+    "join": "加入我们"
+  },
+  "Home": {
+    "heroTitle": "连接中华文化与多大社区",
+    "heroSubtitle": "搭建桥梁，促进成长，为学生打造海外之家。",
+    "viewEvents": "查看活动",
+    "aboutUs": "关于我们",
+    "newToUofT": "多大新生？",
+    "guideDescription": "获取2024新生手册。这是您的必备生存指南，涵盖选课、租房到多伦多美食的一切信息。",
+    "downloadGuide": "下载手册",
+    "guideYear": "2024 手册",
+    "ourDepartments": "我们的部门",
+    "viewMore": "查看更多",
+    "internalDivision": "内部建设板块",
+    "internalDesc": "运营的中坚力量。管理活动、人力资源和后勤，确保组织平稳运行。",
+    "externalDivision": "对外联络板块",
+    "externalDesc": "搭建沟通桥梁。负责公共关系、赞助以及组织春晚等大型对外活动。",
+    "executiveDivision": "执行策划板块",
+    "executiveDesc": "创意的引擎。负责财务、市场营销和媒体制作，扩大我们的影响力并确保可持续发展。"
+  },
+  "About": {
+    "title": "关于我们",
+    "subtitle": "自1982年起服务多大华人社区。",
+    "missionTitle": "我们的使命",
+    "missionText": "为多伦多大学的中国学生学者打造海外之家。我们致力于建立互助社区，弘扬中华文化，并搭建学生与大学环境之间的桥梁。",
+    "historyTitle": "我们的历史",
+    "historyText": "UT CSSA 成立于1982年，已从一个小型的学生团体发展成为多伦多大学最大、最具影响力的学生组织之一。四十多年来，我们始终致力于服务华人社区并促进文化交流。",
+    "departmentsTitle": "组织架构",
+    "executivesTitle": "主席团",
+    "internalTitle": "内部建设板块",
+    "internalDesc": "大家庭的“管家”。包括活动部、人力资源部和后勤部。我们维护日常运营，确保一切井然有序。",
+    "externalTitle": "对外联络板块",
+    "externalDesc": "通往外界的桥梁。包括赞助部和公关部。我们组织春晚等大型活动，并建立职业网络。",
+    "executiveTitle": "执行策划板块",
+    "executiveDesc": "创意与技术中心。包括财务部、市场部和媒体部。我们管理组织的“生命线”，并通过设计和内容扩大影响力。",
+    "generalTitle": "综合事务板块",
+    "generalDesc": "支持学生生活和学术成功。我们致力于为所有成员创造一个支持性的环境。"
+  },
+  "Team": {
+    "title": "我们的团队",
+    "subtitle": "认识让CSSA成为可能的奉献者。",
+    "noMembers": "暂无团队成员信息。",
+    "coPresidents": "主席",
+    "vpInternal": "内建副主席",
+    "vpExternal": "外联副主席",
+    "vpExecutive": "执策副主席",
+    "vpGeneral": "综务副主席",
+    "meetTheTeam": "认识团队",
+    "joinTeam": "有兴趣加入我们吗？"
+  },
+  "Events": {
+    "title": "活动",
+    "subtitle": "探索社区动态。加入我们的研讨会、庆典和社交活动。",
+    "upcoming": "即将开始",
+    "ongoing": "进行中",
+    "past": "往期活动",
+    "noEvents": "该分类下暂无活动。"
+  },
+  "Guides": {
+    "title": "新生手册",
+    "description": "多年来，CSSA 致力于为新生编写最全面的生存指南。从选课到寻找多伦多最好的美食，我们的新生手册是您开启多大旅程的必备伴侣。",
+    "noGuides": "暂无手册。请稍后再来。",
+    "edition": "版",
+    "noCover": "无封面",
+    "download": "下载 PDF",
+    "defaultDesc": "{year} 指南"
+  },
+  "Join": {
+    "title": "成为会员",
+    "description": "加入多伦多大学最大的华人学生社区。结识同伴，获取独家资源，创造终身难忘的回忆。",
+    "button": "填写申请表",
+    "note": "您将被带到我们的官方注册页面。",
+    "benefitsTitle": "为什么加入 CSSA？",
+    "communityTitle": "社区",
+    "communityDesc": "成为充满活力的学生网络的一部分。寻找导师、学习伙伴和一生的朋友。",
+    "supportTitle": "支持",
+    "supportDesc": "获得学术挑战、职业规划和适应多伦多生活的帮助。",
+    "eventsTitle": "独家活动",
+    "eventsDesc": "优先参加我们全年最受欢迎的活动、研讨会和晚会。"
+  },
+  "MemberProfile": {
+    "back": "返回",
+    "notFound": "未找到成员",
+    "goBack": "返回",
+    "roles": {
+      "HD": "部长",
+      "DH": "副部长",
+      "Member": "部员"
+    },
+    "titles": {
+      "P": "主席",
+      "VP": "副主席",
+      "D": "总监",
+      "DD": "副总监"
+    },
+    "labels": {
+      "department": "部门",
+      "role": "职位",
+      "joined": "加入时间",
+      "faculty": "学院",
+      "college": "书院",
+      "program": "专业",
+      "year": "年级",
+      "status": "状态",
+      "contact": "联系方式",
+      "bio": "个人简介"
+    },
+    "noBio": "暂无简介。",
+    "personalDetails": "个人信息",
+    "displayName": "显示名称",
+    "preferredName": "首选名称",
+    "hidden": "隐藏",
+    "unspecified": "未指定",
+    "academicInfo": "学术信息",
+    "associationDetails": "协会信息",
+    "none": "无",
+    "unknown": "未知"
+  },
+  "Footer": {
+    "title": "学生会",
+    "description": "自1982年以来，以奉献和热情服务学生社区。",
+    "quickLinks": "快速链接",
+    "aboutUs": "关于我们",
+    "contact": "联系我们",
+    "privacyPolicy": "隐私政策",
+    "copyright": "© 2025 学生会。保留所有权利。"
+  },
+  "DepartmentsPage": {
+    "title": "部门架构",
+    "subtitle": "探索我们学生会的组织架构。",
+    "chartTitle": "组织结构图",
+    "error": "加载部门失败",
+    "noDepartments": "未找到部门。",
+    "viewDetails": "查看详情"
+  },
+  "EventsGrid": {
+    "upcomingEvents": "近期活动",
+    "viewAllEvents": "查看所有活动",
+    "loadError": "加载活动失败。请稍后再试。",
+    "noEvents": "暂无近期活动。敬请期待！"
+  },
+  "FloatingSocials": {
+    "weChatTitle": "关注我们的微信",
+    "weChatDesc": "微信是一个封闭平台。请打开您的微信应用并搜索以下ID：",
+    "clickToSelect": "（点击文本选中）"
+  }
+}

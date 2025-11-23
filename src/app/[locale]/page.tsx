@@ -3,10 +3,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import EventsGrid from "@/components/sections/EventsGrid";
 import { useTranslation } from "@/app/i18n";
-import { getLocale } from "@/app/i18n/server-utils";
 
-export default async function Home() {
-  const locale = await getLocale();
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const { t } = await useTranslation(locale, "Home");
 
   const departments = [
@@ -14,7 +13,7 @@ export default async function Home() {
       key: "internal",
       title: t("internalDivision"),
       description: t("internalDesc"),
-      link: `/about`,
+      link: `/${locale}/about`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       )
@@ -23,7 +22,7 @@ export default async function Home() {
       key: "external",
       title: t("externalDivision"),
       description: t("externalDesc"),
-      link: `/about`,
+      link: `/${locale}/about`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
       )
@@ -32,7 +31,7 @@ export default async function Home() {
       key: "executive",
       title: t("executiveDivision"),
       description: t("executiveDesc"),
-      link: `/about`,
+      link: `/${locale}/about`,
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
       )
@@ -62,12 +61,12 @@ export default async function Home() {
             {t("heroSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href={`/events`}>
+            <Link href={`/${locale}/events`}>
               <Button className="bg-primary hover:bg-primary-dark text-white px-8 py-6 text-lg font-bold uppercase tracking-widest rounded-none w-full sm:w-auto">
                 {t("viewEvents")}
               </Button>
             </Link>
-            <Link href={`/about`}>
+            <Link href={`/${locale}/about`}>
               <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg font-bold uppercase tracking-widest rounded-none w-full sm:w-auto bg-transparent">
                 {t("aboutUs")}
               </Button>
@@ -86,7 +85,7 @@ export default async function Home() {
             <p className="text-lg text-white/90 mb-8 leading-relaxed">
               {t("guideDescription")}
             </p>
-            <Link href={`/guides`}>
+            <Link href={`/${locale}/guides`}>
               <Button className="bg-white text-primary hover:bg-gray-100 px-8 py-6 text-lg font-bold uppercase tracking-widest rounded-none">
                 {t("downloadGuide")} <ArrowRight className="ml-2 w-5 h-5" />
               </Button>

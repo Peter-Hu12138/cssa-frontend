@@ -10,10 +10,10 @@ import { DEFAULT_LINKS } from "@/lib/links";
 import { ensureAbsoluteUrl } from "@/lib/utils";
 import { useTranslation } from "@/app/i18n/client";
 
-export default function JoinPage() {
-  const { t, i18n } = useTranslation(undefined, "Join", {});
-  const locale = i18n.resolvedLanguage || "en";
+export default function JoinPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const { data: fetchedLinks } = useExternalLinks();
+  const { t } = useTranslation(locale, "Join", {});
   
   // Find the join-club link from fetched data, or fallback to default, or fallback to backend redirect
   const joinLinkObj = fetchedLinks?.find(l => l.slug === "join-club") || DEFAULT_LINKS.find(l => l.slug === "join-club");

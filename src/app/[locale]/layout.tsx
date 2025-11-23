@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Providers from "./providers";
+import "../globals.css";
+import Providers from "../providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { FloatingSocials } from "@/components/layout/FloatingSocials";
-import { languages } from './i18n/settings'
-import { useTranslation } from './i18n'
+import { languages } from '../i18n/settings'
+import { useTranslation } from '../i18n'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,19 +17,23 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-import { getLocale } from './i18n/server-utils'
-
 export const metadata: Metadata = {
   title: "Student Association Portal",
   description: "Official Student Association Portal",
 };
 
+export async function generateStaticParams() {
+  return languages.map((lng) => ({ locale: lng }))
+}
+
 export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{locale: string}>;
 }) {
-  const locale = await getLocale();
+  const { locale } = await params;
   
   return (
     <html lang={locale} dir="ltr">

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { use } from "react";
 import { 
   Users, 
   Megaphone, 
@@ -42,9 +42,10 @@ function ExecutiveCard({ name, role, image }: { name: string; role: string; imag
   );
 }
 
-export default function AboutPage() {
-  const { t } = useTranslation(undefined, "About", {});
-  const { t: tTeam } = useTranslation(undefined, "Team", {});
+export default function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  const { t } = useTranslation(locale, "About", {});
+  const { t: tTeam } = useTranslation(locale, "Team", {});
 
   const departments = [
     {
@@ -204,7 +205,7 @@ export default function AboutPage() {
           
           <div className="mt-16 text-center">
             <p className="text-gray-500 mb-6">{tTeam("joinTeam")}</p>
-            <Link href={`/team`}>
+            <Link href={`/${locale}/team`}>
               <button className="bg-white text-primary border-2 border-primary px-8 py-3 font-bold uppercase tracking-widest hover:bg-primary hover:text-white transition-all duration-300">
                 {tTeam("meetTheTeam")}
               </button>

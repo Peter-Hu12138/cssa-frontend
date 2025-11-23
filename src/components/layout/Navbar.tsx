@@ -1,7 +1,13 @@
+'use client'
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "@/app/i18n/client";
 
-export function Navbar() {
+export function Navbar({ lng }: { lng: string }) {
+  const { t } = useTranslation(lng, "Navigation", {});
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 transition-all duration-300">
       <div className="container mx-auto px-6 h-20 flex items-center justify-between">
@@ -21,45 +27,46 @@ export function Navbar() {
             href="/" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            Home
+            {t("home")}
           </Link>
           <Link 
             href="/departments" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            Departments
+            {t("departments")}
           </Link>
           <Link 
             href="/events" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            Events
+            {t("events")}
           </Link>
           <Link 
             href="/about" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            About
+            {t("about")}
           </Link>
           <Link 
             href="/team" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            Team
+            {t("team")}
           </Link>
           <Link 
             href="/guides" 
             className="text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-primary transition-colors"
           >
-            Guides
+            {t("guides")}
           </Link>
         </nav>
 
         {/* Auth Buttons - Removed for static site */}
         <div className="flex items-center space-x-4">
+          <LanguageSwitcher lng={lng} />
           <Link href="/join">
             <Button className="bg-primary text-white hover:bg-primary-dark text-sm font-bold uppercase tracking-wider px-6 rounded-none">
-              Join Us
+              {t("join")}
             </Button>
           </Link>
         </div>

@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { use } from "react";
 import { useTranslation } from "@/app/i18n/client";
 import type { Department } from "@/types/api";
 
@@ -51,9 +52,9 @@ function buildDepartmentTree(departments: Department[]): DepartmentNode[] {
   return roots;
 }
 
-export default function DepartmentsPage() {
-  const { t, i18n } = useTranslation(undefined, "DepartmentsPage", {});
-  const locale = i18n.resolvedLanguage || "en";
+export default function DepartmentsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  const { t } = useTranslation(locale, "DepartmentsPage", {});
   const { data: departments, isLoading, isError } = useQuery({
     queryKey: ["departments"],
     queryFn: fetchDepartments,
@@ -73,7 +74,7 @@ export default function DepartmentsPage() {
   if (isError || !departments) {
     return (
       <div className="container mx-auto py-12 px-4 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Failed to load departments</h2>
+        <h2 className="text-2xl font-bold text-gray-900">{t("error")}</h2>
       </div>
     );
   }
@@ -85,10 +86,10 @@ export default function DepartmentsPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
           <FolderTree className="mr-3 h-10 w-10 text-primary" />
-          Department Structure
+          {t("title")}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Explore the organizational structure of our student association.
+          {t("subtitle")}
         </p>
       </div>
 
@@ -97,18 +98,18 @@ export default function DepartmentsPage() {
           <CardHeader className="bg-gray-50/50 border-b border-gray-100 pb-6">
             <CardTitle className="text-xl text-gray-800 flex items-center">
               <Building2 className="mr-2 h-5 w-5 text-primary" />
-              Organization Chart
+              {t("chartTitle")}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 md:p-8">
             {tree.length === 0 ? (
               <div className="text-center py-12 text-gray-500">
-                No departments found.
+                {t("noDepartments")}
               </div>
             ) : (
               <div className="space-y-2">
                 {tree.map((node) => (
-                  <DepartmentTreeItem key={node.id} node={node} level={0} />
+                  <DepartmentTreeItem key={node.id} node={node} level={0} lng={locale} />
                 ))}
               </div>
             )}
@@ -119,9 +120,14 @@ export default function DepartmentsPage() {
   );
 }
 
-function DepartmentTreeItem({ node, level }: { node: DepartmentNode; level: number }) {
+function DepartmentTreeItem({ node, level, lng }: { node: DepartmentNode; level: number; lng: string }) {
   const [isOpen, setIsOpen] = useState(true);
   const hasChildren = node.children.length > 0;
+  const { t } = useTranslation(lng, "DepartmentsPage", {});
+  const locale = lng;
+
+  const displayName = locale === "en" && node.english_name ? node.english_name : node.name;
+  const secondaryName = locale === "en" && node.english_name ? node.name : (node.english_name ? node.english_name : null);
 
   return (
     <div className="select-none">
@@ -149,19 +155,19 @@ function DepartmentTreeItem({ node, level }: { node: DepartmentNode; level: numb
             "text-gray-900",
             level === 0 ? "text-lg" : "text-base"
           )}>
-            {node.name}
+            {displayName}
           </span>
-          {node.english_name && (
+          {secondaryName && (
             <span className="ml-2 text-sm text-gray-500 hidden sm:inline-block">
-              ({node.english_name})
+              ({secondaryName})
             </span>
           )}
         </div>
 
         <Button variant="ghost" size="sm" className="text-gray-400 hover:text-primary hover:bg-red-100" asChild>
-          <a href={`/departments/${node.id}`}>
+          <a href={`/${lng}/departments/${node.id}`}>
             <Users className="h-4 w-4 mr-2" />
-            View Details
+            {t("viewDetails")}
           </a>
         </Button>
       </div>
@@ -169,7 +175,7 @@ function DepartmentTreeItem({ node, level }: { node: DepartmentNode; level: numb
       {isOpen && hasChildren && (
         <div className="animate-in slide-in-from-top-2 duration-200">
           {node.children.map((child) => (
-            <DepartmentTreeItem key={child.id} node={child} level={level + 1} />
+            <DepartmentTreeItem key={child.id} node={child} level={level + 1} lng={lng} />
           ))}
         </div>
       )}

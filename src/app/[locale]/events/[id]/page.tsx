@@ -1,7 +1,8 @@
 "use client";
 
+import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { 
   CalendarDays, 
@@ -27,9 +28,8 @@ async function fetchEvent(id: string): Promise<Event> {
   return res.json();
 }
 
-export default function EventDetailPage() {
-  const params = useParams();
-  const id = params.id as string;
+export default function EventDetailPage({ params }: { params: Promise<{ locale: string; id: string }> }) {
+  const { locale, id } = use(params);
   const router = useRouter();
 
   const { data: event, isLoading, isError } = useQuery({
@@ -77,7 +77,7 @@ export default function EventDetailPage() {
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
         <div className="h-64 bg-gradient-to-r from-red-600 to-red-800 relative p-8 flex flex-col justify-end text-white">
           <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium">
-            {event.status?.replace(/_/g, " ")}
+            {event.status?.replace(/_/g, ' ')}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">{event.name}</h1>
           <div className="flex flex-wrap gap-4 text-sm opacity-90">
@@ -138,7 +138,7 @@ export default function EventDetailPage() {
                     {event.eventdate ? format(new Date(event.eventdate), "MMM dd, yyyy") : "TBA"}
                   </p>
                   <p className="text-gray-500">
-                    {event.eventdate ? format(new Date(event.eventdate), "h:mm a") : ""}
+                    {event.eventdate ? format(new Date(event.eventdate), "h:mm a") : ""} 
                     {event.eventEndTime ? ` - ${format(new Date(event.eventEndTime), "h:mm a")}` : ""}
                   </p>
                 </div>
@@ -159,8 +159,8 @@ export default function EventDetailPage() {
 function AttachmentCard({ attachment }: { attachment: EventAttachment }) {
   const getIcon = () => {
     switch (attachment.category) {
-      case "budget": return <FileSpreadsheet className="w-5 h-5 text-green-600" />;
-      case "proposal": return <FileText className="w-5 h-5 text-blue-600" />;
+      case 'budget': return <FileSpreadsheet className="w-5 h-5 text-green-600" />;
+      case 'proposal': return <FileText className="w-5 h-5 text-blue-600" />;
       default: return <File className="w-5 h-5 text-gray-500" />;
     }
   };

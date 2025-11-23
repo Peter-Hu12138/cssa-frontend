@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import EventCard from "@/components/ui/EventCard";
 import EventCardSkeleton from "@/components/ui/EventCardSkeleton";
 import { useEvents } from "@/hooks/useEvents";
@@ -9,10 +9,11 @@ import { useTranslation } from "@/app/i18n/client";
 
 type EventCategory = "upcoming" | "ongoing" | "past";
 
-export default function EventsPage() {
+export default function EventsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
   const { data: events, isLoading, isError } = useEvents();
   const [activeCategory, setActiveCategory] = useState<EventCategory>("upcoming");
-  const { t, i18n } = useTranslation(undefined, "Events", {});
+  const { t } = useTranslation(locale, "Events", {});
 
   // Filter events based on category
   const filteredEvents = React.useMemo(() => {
@@ -24,11 +25,11 @@ export default function EventsPage() {
       if (!event.eventdate) return false;
       
       const start = new Date(event.eventdate);
-      // If no end time, assume it ends 2 hours after start for categorization purposes,
+      // If no end time, assume it ends 2 hours after start for categorization purposes, 
       // or just treat it as a point in time.
       // Let's assume if no end time, it's a point in time event.
       const end = event.eventEndTime ? new Date(event.eventEndTime) : new Date(start.getTime() + 2 * 60 * 60 * 1000);
-      
+
       if (activeCategory === "ongoing") {
         return start <= now && end >= now;
       } else if (activeCategory === "upcoming") {
@@ -103,7 +104,7 @@ export default function EventsPage() {
               ))
             ) : filteredEvents.length > 0 ? (
               filteredEvents.map((event) => (
-                <EventCard key={event.id} event={event} lng={i18n.language} />
+                <EventCard key={event.id} event={event} lng={locale} />
               ))
             ) : (
               <div className="col-span-full text-center py-12">

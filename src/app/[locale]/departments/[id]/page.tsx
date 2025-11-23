@@ -1,7 +1,8 @@
 "use client";
 
+import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   Building2, 
@@ -18,8 +19,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { API_URL } from "@/lib/config";
-import { useTranslation } from "@/app/i18n/client";
 import type { Department, MemberPublic as Member, PaginatedResponse } from "@/types/api";
+import { useTranslation } from "@/app/i18n/client";
 
 async function fetchDepartments(): Promise<Department[]> {
   const res = await fetch("http://localhost:8000/api/v1/department/departments/");
@@ -37,12 +38,10 @@ async function fetchDepartmentMembers(deptId: string): Promise<PaginatedResponse
   return res.json();
 }
 
-export default function DepartmentDetailPage() {
-  const params = useParams();
+export default function DepartmentDetailPage({ params }: { params: Promise<{ locale: string; id: string }> }) {
+  const { locale, id } = use(params);
   const router = useRouter();
-  const id = params.id as string;
-  const { t, i18n } = useTranslation(undefined, "Department", {});
-  const locale = i18n.resolvedLanguage || "en";
+  const { t } = useTranslation(locale, "Department", {});
   const { t: tCommon } = useTranslation(locale, "Common", {});
 
   // Fetch all departments to find current and children
@@ -75,13 +74,14 @@ export default function DepartmentDetailPage() {
 
   const department = departments?.find(d => d.id.toString() === id);
   const subDepartments = departments?.filter(d => d.super_department?.toString() === id) || [];
+  const description = locale === "en" && department?.description_en ? department.description_en : department?.description;
 
   if (!department) {
     return (
       <div className="container mx-auto py-12 px-4 text-center">
         <h2 className="text-2xl font-bold text-gray-900">Department not found</h2>
         <Button onClick={() => router.back()} className="mt-4" variant="outline">
-          Go Back
+          {tCommon("back")}
         </Button>
       </div>
     );
@@ -95,14 +95,14 @@ export default function DepartmentDetailPage() {
         onClick={() => router.back()}
       >
         <ArrowLeft className="w-4 h-4 mr-2" />
-        Back to Departments
+        {tCommon("back")}
       </Button>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
         <div className="bg-gradient-to-r from-red-600 to-red-800 p-8 text-white">
           <div className="flex items-center mb-2 opacity-80 text-sm font-medium uppercase tracking-wider">
             <Building2 className="w-4 h-4 mr-2" />
-            Department
+            {t("title")}
           </div>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">{department.name}</h1>
           {department.english_name && (
@@ -110,7 +110,7 @@ export default function DepartmentDetailPage() {
           )}
           {department.super_department_name && (
             <div className="mt-4 inline-flex items-center bg-white/10 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
-              <span className="opacity-70 mr-2">Part of:</span>
+              <span className="opacity-70 mr-2">{t("partOf")}</span>
               <span className="font-medium">{department.super_department_name}</span>
             </div>
           )}
@@ -124,13 +124,13 @@ export default function DepartmentDetailPage() {
             <section>
               <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
                 <FolderTreeIcon className="w-5 h-5 mr-2 text-primary" />
-                Sub-Departments
+                {t("subDepartments")}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {subDepartments.map(sub => (
                   <a 
                     key={sub.id} 
-                    href={`/departments/${sub.id}`}
+                    href={`/${locale}/departments/${sub.id}`}
                     className="block p-4 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition-all bg-white group"
                   >
                     <h4 className="font-bold text-gray-900 group-hover:text-primary transition-colors">
@@ -140,7 +140,7 @@ export default function DepartmentDetailPage() {
                       <p className="text-sm text-gray-500 mt-1">{sub.english_name}</p>
                     )}
                     <div className="mt-3 flex items-center text-xs text-gray-400 font-medium uppercase tracking-wide">
-                      View Details <ArrowLeft className="w-3 h-3 ml-1 rotate-180" />
+                      {tCommon("viewDetails")} <ArrowLeft className="w-3 h-3 ml-1 rotate-180" />
                     </div>
                   </a>
                 ))}
@@ -152,19 +152,19 @@ export default function DepartmentDetailPage() {
           <section>
             <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
               <Users className="w-5 h-5 mr-2 text-primary" />
-              Team Members
+              {t("teamMembers")}
             </h3>
             
             {members && members.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {members.map(member => (
-                  <MemberCard key={member.id} member={member} />
+                  <MemberCard key={member.id} member={member} lng={locale} />
                 ))}
               </div>
             ) : (
               <div className="bg-gray-50 rounded-lg p-8 text-center border border-dashed border-gray-200">
                 <Users className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No members listed in this department.</p>
+                <p className="text-gray-500">{t("noMembers")}</p>
               </div>
             )}
           </section>
@@ -174,23 +174,23 @@ export default function DepartmentDetailPage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Department Info</CardTitle>
+              <CardTitle className="text-base">{t("info")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
-              {department.description && (
+              {description && (
                 <div className="pb-4 border-b border-gray-100">
                   <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-2">
-                    About
+                    {t("about")}
                   </span>
                   <p className="text-gray-600 leading-relaxed">
-                    {department.description}
+                    {description}
                   </p>
                 </div>
               )}
 
               <div>
                 <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                  Total Members
+                  {t("totalMembers")}
                 </span>
                 <p className="font-medium text-lg">{members?.length || 0}</p>
               </div>
@@ -198,7 +198,7 @@ export default function DepartmentDetailPage() {
               {subDepartments.length > 0 && (
                 <div className="pt-4 border-t border-gray-100">
                   <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                    Sub-units
+                    {t("subUnits")}
                   </span>
                   <p className="font-medium text-lg">{subDepartments.length}</p>
                 </div>
@@ -211,7 +211,10 @@ export default function DepartmentDetailPage() {
   );
 }
 
-function MemberCard({ member }: { member: Member }) {
+function MemberCard({ member, lng }: { member: Member; lng: string }) {
+  const locale = lng;
+  const bio = locale === "en" && member.bio_en ? member.bio_en : member.bio;
+
   const getRoleBadge = (role: string) => {
     switch (role) {
       case 'HD': return <Badge className="bg-red-600 hover:bg-red-700">Head</Badge>;
@@ -301,43 +304,11 @@ function MemberCard({ member }: { member: Member }) {
             )}
           </div>
 
-          {member.bio && (
+          {bio && (
             <p className="text-gray-400 italic line-clamp-2 mt-1 border-t border-gray-50 pt-1">
-              {member.bio}
+              {bio}
             </p>
           )}
-
-          {/* Social Links */}
-          <div className="flex space-x-3 mt-2">
-            {member.linkedin_url && (
-              <a 
-                href={member.linkedin_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            )}
-            {member.github_url && (
-              <a 
-                href={member.github_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            )}
-            {member.email && (
-              <a 
-                href={`mailto:${member.email}`} 
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
-            )}
-          </div>
         </div>
       </div>
     </div>

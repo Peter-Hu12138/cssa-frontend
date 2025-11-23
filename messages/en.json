@@ -1,0 +1,155 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "departments": "Departments",
+    "about": "About",
+    "team": "Team",
+    "events": "Events",
+    "guides": "Guides",
+    "join": "Join Us"
+  },
+  "Home": {
+    "heroTitle": "Connecting Chinese Culture with the UofT Community",
+    "heroSubtitle": "Building bridges, fostering growth, and creating a home away from home for students.",
+    "viewEvents": "View Events",
+    "aboutUs": "About Us",
+    "newToUofT": "New to UofT?",
+    "guideDescription": "Get your copy of the 2024 Freshman Guide. It's your essential survival manual covering everything from course selection and housing to the best food spots in Toronto.",
+    "downloadGuide": "Download Guide",
+    "guideYear": "2024 Guide",
+    "ourDepartments": "Our Departments",
+    "viewMore": "View More",
+    "internalDivision": "Internal Division",
+    "internalDesc": "The backbone of our operations. Managing activities, human resources, and logistics to keep the organization running smoothly.",
+    "externalDivision": "External Division",
+    "externalDesc": "Building bridges. Responsible for public relations, sponsorships, and organizing major external events like the Spring Gala.",
+    "executiveDivision": "Executive Division",
+    "executiveDesc": "The creative engine. Handling finance, marketing, and media production to amplify our voice and ensure sustainability."
+  },
+  "About": {
+    "title": "About Us",
+    "subtitle": "Serving the Chinese community at UofT since 1982.",
+    "missionTitle": "Our Mission",
+    "missionText": "To build a home away from home for Chinese students and scholars at the University of Toronto. We strive to foster a supportive community, promote Chinese culture, and bridge the gap between students and the broader university environment.",
+    "historyTitle": "Our History",
+    "historyText": "Founded in 1982, UT CSSA has grown from a small student group to one of the largest and most influential student organizations at the University of Toronto. For over four decades, we have been dedicated to serving the Chinese community and promoting cultural exchange.",
+    "departmentsTitle": "Our Structure",
+    "executivesTitle": "Executive Team",
+    "internalTitle": "Internal Division",
+    "internalDesc": "The 'shopkeepers' of our family. Includes Activity, HR, and Logistics departments. We maintain the daily operations and ensure everything runs smoothly.",
+    "externalTitle": "External Division",
+    "externalDesc": "The bridge to the outside world. Includes Sponsorship and Public Relations. We organize major events like the Spring Gala and build professional networks.",
+    "executiveTitle": "Executive Division",
+    "executiveDesc": "The creative and technical hub. Includes Finance, Marketing, and Media. We manage the organization's 'lifeline' and amplify our voice through design and content.",
+    "generalTitle": "General Affairs",
+    "generalDesc": "Supporting student life and academic success. We are dedicated to creating a supportive environment for all members."
+  },
+  "Team": {
+    "title": "Our Team",
+    "subtitle": "Meet the dedicated individuals who make CSSA possible.",
+    "noMembers": "No team members found. Please check back later.",
+    "coPresidents": "Co-Presidents",
+    "vpInternal": "VP Internal",
+    "vpExternal": "VP External",
+    "vpExecutive": "VP Executive",
+    "vpGeneral": "VP General Affairs",
+    "meetTheTeam": "Meet the Team",
+    "joinTeam": "Interested in joining our team?"
+  },
+  "Events": {
+    "title": "Events",
+    "subtitle": "Discover what's happening in our community. Join us for workshops, celebrations, and networking opportunities.",
+    "upcoming": "Upcoming",
+    "ongoing": "Ongoing",
+    "past": "Past Events",
+    "noEvents": "No events found in this category."
+  },
+  "Guides": {
+    "title": "Freshman Guides",
+    "description": "For years, CSSA has dedicated itself to compiling the most comprehensive survival guide for new students. From course selection to finding the best food in Toronto, our Freshman Guide is your essential companion for starting your journey at UofT.",
+    "noGuides": "No guides available at the moment. Please check back later.",
+    "edition": "Edition",
+    "noCover": "No Cover",
+    "download": "Download PDF",
+    "defaultDesc": "{year} Guidebook"
+  },
+  "Join": {
+    "title": "Become a Member",
+    "description": "Join the largest Chinese student community at the University of Toronto. Connect with peers, access exclusive resources, and make lifelong memories.",
+    "button": "Fill Application Form",
+    "note": "You will be taken to our official registration page.",
+    "benefitsTitle": "Why Join CSSA?",
+    "communityTitle": "Community",
+    "communityDesc": "Be part of a vibrant network of students. Find mentorship, study buddies, and friends for life.",
+    "supportTitle": "Support",
+    "supportDesc": "Get help with academic challenges, career planning, and adapting to life in Toronto.",
+    "eventsTitle": "Exclusive Events",
+    "eventsDesc": "Priority access to our most popular events, workshops, and galas throughout the year."
+  },
+  "MemberProfile": {
+    "back": "Back",
+    "notFound": "Member not found",
+    "goBack": "Go Back",
+    "roles": {
+      "HD": "Head",
+      "DH": "Deputy Head",
+      "Member": "Member"
+    },
+    "titles": {
+      "P": "President",
+      "VP": "Vice President",
+      "D": "Director",
+      "DD": "Deputy Director"
+    },
+    "labels": {
+      "department": "Department",
+      "role": "Role",
+      "joined": "Joined",
+      "faculty": "Faculty",
+      "college": "College",
+      "program": "Program",
+      "year": "Year of Study",
+      "status": "Status",
+      "contact": "Contact",
+      "bio": "Biography"
+    },
+    "noBio": "No biography available.",
+    "personalDetails": "Personal Details",
+    "displayName": "Display Name",
+    "preferredName": "Preferred Name",
+    "hidden": "Hidden",
+    "unspecified": "Unspecified",
+    "academicInfo": "Academic Information",
+    "associationDetails": "Association Details",
+    "none": "None",
+    "unknown": "Unknown"
+  },
+  "Footer": {
+    "title": "Student Association",
+    "description": "Serving the student community with dedication and passion since 1982.",
+    "quickLinks": "Quick Links",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "copyright": "© 2025 Student Association. All rights reserved."
+  },
+  "DepartmentsPage": {
+    "title": "Department Structure",
+    "subtitle": "Explore the organizational structure of our student association.",
+    "chartTitle": "Organization Chart",
+    "error": "Failed to load departments",
+    "noDepartments": "No departments found.",
+    "viewDetails": "View Details"
+  },
+  "EventsGrid": {
+    "upcomingEvents": "Upcoming Events",
+    "viewAllEvents": "View All Events",
+    "loadError": "Failed to load events. Please try again later.",
+    "noEvents": "No upcoming events at the moment. Stay tuned!"
+  },
+  "FloatingSocials": {
+    "weChatTitle": "Follow us on WeChat",
+    "weChatDesc": "WeChat is a closed platform. Please open your WeChat app and search for the ID below:",
+    "clickToSelect": "(Click text to select)"
+  }
+}
