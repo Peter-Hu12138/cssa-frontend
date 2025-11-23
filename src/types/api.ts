@@ -92,8 +92,10 @@ export interface Event {
   uuid?: string; // format: uuid
   name: string;
   name_en?: string;
+  cover_image?: string | null;
   description: string;
   description_en?: string;
+  external_link?: string | null;
   department_in_charge: number;
   department_in_charge_detail: Department;
   leader: number;

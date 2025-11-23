@@ -75,19 +75,35 @@ export default function EventDetailPage() {
       </Button>
 
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-        <div className="h-64 bg-gradient-to-r from-red-600 to-red-800 relative p-8 flex flex-col justify-end text-white">
-          <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium">
+        <div className="h-96 relative p-8 flex flex-col justify-end text-white overflow-hidden group">
+          {event.cover_image ? (
+            <>
+              <img 
+                src={event.cover_image} 
+                alt={event.name} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-800" />
+          )}
+
+          <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium z-10">
             {event.status?.replace(/_/g, " ")}
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{event.name}</h1>
-          <div className="flex flex-wrap gap-4 text-sm opacity-90">
-            <div className="flex items-center">
-              <CalendarDays className="w-4 h-4 mr-2" />
-              {event.eventdate ? format(new Date(event.eventdate), "EEEE, MMMM do, yyyy • h:mm a") : "TBA"}
-            </div>
-            <div className="flex items-center">
-              <User className="w-4 h-4 mr-2" />
-              Organized by {event.department_in_charge_detail.name}
+          
+          <div className="relative z-10">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{event.name}</h1>
+            <div className="flex flex-wrap gap-4 text-sm opacity-90">
+              <div className="flex items-center">
+                <CalendarDays className="w-4 h-4 mr-2" />
+                {event.eventdate ? format(new Date(event.eventdate), "EEEE, MMMM do, yyyy • h:mm a") : "TBA"}
+              </div>
+              <div className="flex items-center">
+                <User className="w-4 h-4 mr-2" />
+                Organized by {event.department_in_charge_detail.name}
+              </div>
             </div>
           </div>
         </div>
@@ -147,6 +163,16 @@ export default function EventDetailPage() {
                   <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">Department</span>
                   <p className="font-medium">{event.department_in_charge_detail.name}</p>
                 </div>
+
+                {event.external_link && (
+                  <div className="pt-4 border-t border-gray-100">
+                    <Button className="w-full" asChild>
+                      <a href={event.external_link} target="_blank" rel="noopener noreferrer">
+                        Register / Learn More
+                      </a>
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

@@ -55,7 +55,7 @@ export default function EventCard({ event, lng }: EventCardProps) {
   const description = locale === "en" && event.description_en ? event.description_en : event.description;
   
   const dateInfo = formatDateBadge(event.eventdate);
-  const imageUrl = event.image || FALLBACK_IMAGE;
+  const imageUrl = event.cover_image || event.image || FALLBACK_IMAGE;
   // Location is not yet in the API response, using placeholder
   const location = "Location TBA"; 
   const previewText = stripHtml(description);

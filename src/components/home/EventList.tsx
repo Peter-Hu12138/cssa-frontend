@@ -54,9 +54,15 @@ export default function EventList() {
         {events.map((event) => (
           <Card key={event.id} className="flex flex-col h-full hover:shadow-md transition-shadow">
             <div className="h-48 bg-gray-100 relative overflow-hidden rounded-t-lg">
-               {/* Placeholder for event image since API doesn't strictly enforce one on the main model, 
-                   but we could use attachments if available. For now, a colored placeholder. */}
-               <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-700 opacity-10" />
+               {event.cover_image ? (
+                 <img 
+                   src={event.cover_image} 
+                   alt={event.name} 
+                   className="w-full h-full object-cover"
+                 />
+               ) : (
+                 <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-700 opacity-10" />
+               )}
                <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-primary shadow-sm">
                  {event.department_in_charge_detail.name}
                </div>

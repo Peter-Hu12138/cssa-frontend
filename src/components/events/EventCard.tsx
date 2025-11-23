@@ -13,8 +13,15 @@ export function EventCard({ event }: EventCardProps) {
   return (
     <Card className="flex flex-col h-full hover:shadow-md transition-shadow overflow-hidden border-gray-100">
       <div className="h-48 bg-gray-50 relative">
-        {/* Placeholder Gradient - In real app, use event.image if available */}
-        <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-700/10" />
+        {event.cover_image ? (
+          <img 
+            src={event.cover_image} 
+            alt={event.name} 
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-700/10" />
+        )}
         
         <div className="absolute top-4 right-4">
            <span className={`px-2 py-1 rounded text-xs font-bold uppercase tracking-wider ${

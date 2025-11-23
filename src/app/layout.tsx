@@ -35,6 +35,7 @@ export default async function RootLayout({
     <html lang={locale} dir="ltr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-page-background`}
+        suppressHydrationWarning
       >
           <Providers>
             {/* Top Border / Brand Line */}
