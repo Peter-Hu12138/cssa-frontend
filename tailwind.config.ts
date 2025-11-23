@@ -10,18 +10,27 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#C8102E", // Deep Cardinal Red
-          dark: "#A00D25",    // Hover state
+          DEFAULT: "#CC232A", // Crimson Red (Action)
+          dark: "#A00D25",
         },
-        background: "#FFFFFF",
+        navy: {
+          DEFAULT: "#1A1A40", // Dominant Navy
+          light: "#2A2A55",
+        },
+        gold: {
+          DEFAULT: "#CC9902", // Luxury Accent
+          light: "#E5B80B",
+        },
+        background: "#FFFFFF", // Canvas White
         "page-background": "#F8F9FA",
         text: {
-          DEFAULT: "#1A1A1A",
+          DEFAULT: "#1A1A40", // Navy for text
           muted: "#64748B",
         },
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "sans-serif"],
+        serif: ["var(--font-playfair)", "serif"], // Added Serif
         mono: ["var(--font-geist-mono)", "monospace"],
       },
     },

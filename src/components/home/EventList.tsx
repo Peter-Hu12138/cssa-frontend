@@ -46,44 +46,43 @@ export default function EventList() {
 
   return (
     <section>
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold tracking-tight text-text">Latest Events</h2>
-        <Button variant="link" className="text-primary">View All Events &rarr;</Button>
+      <div className="flex items-center justify-between mb-12">
+        <h2 className="font-serif text-4xl md:text-5xl font-bold tracking-tight text-navy">Latest Events</h2>
+        <Button variant="link" className="text-gold font-bold uppercase tracking-wider hover:text-navy transition-colors">View All Events &rarr;</Button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {events.map((event) => (
-          <Card key={event.id} className="flex flex-col h-full hover:shadow-md transition-shadow">
-            <div className="h-48 bg-gray-100 relative overflow-hidden rounded-t-lg">
+          <Card key={event.id} className="flex flex-col h-full hover:shadow-xl transition-all duration-300 border-gray-100 group rounded-sm overflow-hidden">
+            <div className="h-56 bg-gray-100 relative overflow-hidden">
                {event.cover_image ? (
                  <img 
                    src={event.cover_image} 
                    alt={event.name} 
-                   className="w-full h-full object-cover"
+                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                  />
                ) : (
-                 <div className="absolute inset-0 bg-gradient-to-br from-red-500 to-red-700 opacity-10" />
+                 <div className="absolute inset-0 bg-gradient-to-br from-navy to-navy-light opacity-90" />
                )}
-               <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-md text-xs font-bold text-primary shadow-sm">
+               <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-sm text-xs font-bold text-navy uppercase tracking-wider shadow-sm">
                  {event.department_in_charge_detail.name}
                </div>
             </div>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg line-clamp-2">{event.name}</CardTitle>
+            <CardHeader className="pb-3 pt-6">
+              <CardTitle className="font-serif text-xl line-clamp-2 text-navy group-hover:text-primary transition-colors duration-300">{event.name}</CardTitle>
             </CardHeader>
             <CardContent className="flex-grow">
-              <p className="text-sm text-text-muted line-clamp-3 mb-4">
+              <p className="font-sans text-sm text-gray-600 line-clamp-3 mb-6 leading-relaxed">
                 {event.description}
               </p>
-              <div className="flex items-center text-xs text-gray-500 space-x-4">
-                <div className="flex items-center">
-                  <CalendarDays className="w-4 h-4 mr-1.5 text-primary" />
+              <div className="flex items-center text-xs text-gray-500 space-x-4 border-t border-gray-100 pt-4">
+                <div className="flex items-center text-gold font-medium">
+                  <CalendarDays className="w-4 h-4 mr-2" />
                   {event.eventdate ? format(new Date(event.eventdate), "MMM dd, yyyy") : "TBA"}
                 </div>
-                {/* Location is not in the main Event model in the schema provided, so omitting */}
               </div>
             </CardContent>
-            <CardFooter className="pt-0">
-              <Button className="w-full" variant="outline">View Details</Button>
+            <CardFooter className="pt-0 pb-6">
+              <Button className="w-full bg-navy text-white hover:bg-primary rounded-sm uppercase tracking-widest font-bold text-xs py-6 transition-colors duration-300">View Details</Button>
             </CardFooter>
           </Card>
         ))}
