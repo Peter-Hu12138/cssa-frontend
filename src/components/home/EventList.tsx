@@ -7,6 +7,7 @@ import { CalendarDays, ArrowRight, Clock } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Event, PaginatedResponse } from "@/types/api";
 import { motion } from "framer-motion";
+import { API_URL } from "@/lib/config";
 
 // --- Helper Components ---
 
@@ -22,7 +23,9 @@ const BackgroundPattern = ({ className = "", opacity = 0.05 }: { className?: str
 // --- Main Component ---
 
 async function fetchEvents(): Promise<PaginatedResponse<Event>> {
-  const res = await fetch("http://localhost:8000/api/v1/events/events/?status=SUPER_DEPT_HEAD_APPROVED&ordering=-eventdate");
+  const res = await fetch(
+    `${API_URL}/api/v1/events/events/?status=SUPER_DEPT_HEAD_APPROVED&ordering=-eventdate`
+  );
   if (!res.ok) {
     throw new Error("Failed to fetch events");
   }

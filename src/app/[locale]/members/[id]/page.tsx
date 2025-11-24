@@ -21,9 +21,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { MemberPublic } from "@/types/api";
 import { useTranslation } from "@/app/i18n/client";
+import { API_URL } from "@/lib/config";
 
 async function fetchMember(id: string): Promise<MemberPublic> {
-  const res = await fetch(`http://localhost:8000/api/v1/member/members/${id}/`);
+  const res = await fetch(`${API_URL}/api/v1/member/members/${id}/`);
   if (!res.ok) {
     throw new Error("Failed to fetch member");
   }

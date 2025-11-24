@@ -18,9 +18,10 @@ import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
 import RichTextRenderer from "@/components/shared/RichTextRenderer";
 import { useTranslation } from "@/app/i18n/client";
 import type { Event, EventAttachment } from "@/types/api";
+import { API_URL } from "@/lib/config";
 
 async function fetchEvent(id: string): Promise<Event> {
-  const res = await fetch(`http://localhost:8000/api/v1/events/events/${id}/`);
+  const res = await fetch(`${API_URL}/api/v1/events/events/${id}/`);
   if (!res.ok) {
     throw new Error("Failed to fetch event");
   }

@@ -11,6 +11,7 @@ import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/app/i18n/client";
 import type { Department } from "@/types/api";
+import { API_URL } from "@/lib/config";
 
 // Extended type for tree structure
 type DepartmentNode = Department & {
@@ -18,7 +19,7 @@ type DepartmentNode = Department & {
 };
 
 async function fetchDepartments(): Promise<Department[]> {
-  const res = await fetch("http://localhost:8000/api/v1/department/departments/");
+  const res = await fetch(`${API_URL}/api/v1/department/departments/`);
   if (!res.ok) {
     throw new Error("Failed to fetch departments");
   }

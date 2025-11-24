@@ -24,7 +24,7 @@ import { API_URL } from "@/lib/config";
 import type { Department, MemberPublic as Member, PaginatedResponse } from "@/types/api";
 
 async function fetchDepartments(): Promise<Department[]> {
-  const res = await fetch("http://localhost:8000/api/v1/department/departments/");
+  const res = await fetch(`${API_URL}/api/v1/department/departments/`);
   if (!res.ok) {
     throw new Error("Failed to fetch departments");
   }
@@ -32,7 +32,7 @@ async function fetchDepartments(): Promise<Department[]> {
 }
 
 async function fetchDepartmentMembers(deptId: string): Promise<PaginatedResponse<Member>> {
-  const res = await fetch(`http://localhost:8000/api/v1/member/members/?department=${deptId}`);
+  const res = await fetch(`${API_URL}/api/v1/member/members/?department=${deptId}`);
   if (!res.ok) {
     throw new Error("Failed to fetch members");
   }
