@@ -3,7 +3,9 @@ export const languages = [fallbackLng, 'zh']
 export const defaultNS = 'translation'
 export const cookieName = 'i18next'
 
-export function getOptions(lng = fallbackLng, ns = defaultNS) {
+export type NamespaceInput = string | string[];
+
+export function getOptions(lng: string = fallbackLng, ns: NamespaceInput = defaultNS) {
   return {
     // debug: true,
     supportedLngs: languages,

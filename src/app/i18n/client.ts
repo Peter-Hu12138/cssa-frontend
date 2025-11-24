@@ -30,7 +30,7 @@ i18next
 export function useTranslation(
   lng: string | undefined,
   ns: string,
-  options: UseTranslationOptionsOrg = {}
+  options: UseTranslationOptionsOrg<string> = {}
 ) {
   const ret = useTranslationOrg(ns, lng ? { ...options, lng } : options)
   const { i18n } = ret
