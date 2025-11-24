@@ -2,6 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import * as LucideIcons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { cn, ensureAbsoluteUrl } from "@/lib/utils";
 import { useExternalLinks } from "@/hooks/useExternalLinks";
 import {
@@ -55,9 +56,8 @@ export function FloatingSocials({ lng }: { lng: string }) {
       <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end space-y-3">
         {activeLinks.map((link) => {
           // Dynamically resolve icon component
-          const IconComponent =
-            (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[link.icon_name] ||
-            LucideIcons.Link;
+          const iconName = link.icon_name as keyof typeof LucideIcons;
+          const IconComponent = (LucideIcons[iconName] as LucideIcon | undefined) || LucideIcons.Link;
 
           return (
             <a

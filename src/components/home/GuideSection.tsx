@@ -11,11 +11,13 @@ interface GuideSectionProps {
   description: string;
   cta: string;
   year: string;
+  locale?: string;
 }
 
-export default function GuideSection({ title, description, cta, year }: GuideSectionProps) {
+export default function GuideSection({ title, description, cta, year, locale }: GuideSectionProps) {
   const guideYearLabel = String(year);
   const guideLabel = `${guideYearLabel.toUpperCase()} // GUIDEBOOK`;
+  const localePrefix = locale ? `/${locale}` : "";
 
   return (
     <section className="py-24 bg-navy text-white relative overflow-hidden">
@@ -39,7 +41,7 @@ export default function GuideSection({ title, description, cta, year }: GuideSec
             {description}
           </p>
           <Button size="lg" className="px-12" asChild>
-            <Link href="/guides">
+            <Link href={`${localePrefix}/guides`}>
               {cta} <ArrowRight className="ml-3 w-5 h-5" />
             </Link>
           </Button>

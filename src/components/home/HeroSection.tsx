@@ -11,9 +11,12 @@ interface HeroSectionProps {
   subtitle: string;
   ctaPrimary: string;
   ctaSecondary: string;
+  locale?: string;
 }
 
-export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary }: HeroSectionProps) {
+export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary, locale }: HeroSectionProps) {
+  const localePrefix = locale ? `/${locale}` : "";
+
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-navy text-white">
       <div className="absolute inset-0 z-0">
@@ -67,12 +70,12 @@ export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary 
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <Button size="lg" className="px-12" asChild>
-            <Link href="/events">
+            <Link href={`${localePrefix}/events`}>
               {ctaPrimary}
             </Link>
           </Button>
           <Button size="lg" variant="secondary" className="px-12" asChild>
-            <Link href="/about">
+            <Link href={`${localePrefix}/about`}>
               {ctaSecondary}
             </Link>
           </Button>
