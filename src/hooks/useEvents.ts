@@ -9,8 +9,18 @@ async function fetchEvents(): Promise<Event[]> {
     throw new Error("Failed to fetch events");
   }
 
-  const data: PaginatedResponse<Event> = await response.json();
-  return data.results || [];
+  const data = await response.json();
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  const paginated = data as PaginatedResponse<Event>;
+  if (Array.isArray(paginated.results)) {
+    return paginated.results;
+  }
+
+  return [];
 }
 
 export function useEvents() {

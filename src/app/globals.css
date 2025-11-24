@@ -49,12 +49,12 @@
   --color-navy-light: #2A2A55;
   --color-gold: #CC9902;
   --color-gold-light: #E5B80B;
-  --color-page-background: #F8F9FA;
+  --color-page-background: #F4F7F6;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: #FFFFFF;
+  --background: #F4F7F6; /* Canvas White */
   --foreground: #1A1A40; /* Navy Text */
   --card: #FFFFFF;
   --card-foreground: #1A1A40;

@@ -45,7 +45,7 @@ export default function AcknowledgementsPage() {
                 >
                   Jingtian Hu <Github className="ml-1 h-3 w-3" />
                 </a>
-                , who served as the Lead Developer. The development process involved analyzing the association's requirements, designing the database structure, implementing the web application features, and ensuring the system meets the needs of UTCSSA members and administrators.
+                , who served as the Lead Developer. The development process involved analyzing the association&rsquo;s requirements, designing the database structure, implementing the web application features, and ensuring the system meets the needs of UTCSSA members and administrators.
               </p>
               
               <div className="space-y-2">

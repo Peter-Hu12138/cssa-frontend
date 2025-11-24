@@ -4,8 +4,8 @@ import "./globals.css";
 import Providers from "./providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { FloatingSocials } from "@/components/layout/FloatingSocials";
-import { languages } from './i18n/settings'
-import { useTranslation } from './i18n'
+import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
+import { useTranslation as getServerTranslation } from './i18n'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,28 +64,37 @@ export default async function RootLayout({
 }
 
 async function Footer({ lng }: { lng: string }) {
-  const { t } = await useTranslation(lng, 'Footer')
+  const { t } = await getServerTranslation(lng, 'Footer')
   
   return (
-    <footer className="bg-white border-t border-gray-100 py-12 mt-auto">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="relative bg-[#1A1A40] text-white py-16 mt-auto overflow-hidden">
+      <BackgroundPattern opacity={0.08} />
+      <div className="absolute -top-32 left-10 w-72 h-72 bg-[#CC232A]/30 blur-[140px] rounded-full" aria-hidden="true" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#CC9902]/20 blur-[160px] rounded-full" aria-hidden="true" />
+      <div className="container relative mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
-          <h3 className="font-bold text-lg mb-4">{t("title")}</h3>
-          <p className="text-sm text-gray-500 leading-relaxed">
+          <p className="text-[12px] tracking-[0.6em] text-[#CC9902] uppercase mb-4">{t("est")}</p>
+          <h3 className="font-serif text-3xl leading-tight mb-4">{t("title")}</h3>
+          <p className="text-sm text-white/70 leading-relaxed max-w-sm">
             {t("description")}
           </p>
         </div>
         <div>
-          <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-gray-400">{t("quickLinks")}</h4>
-          <ul className="space-y-2 text-sm text-gray-600">
-            <li><a href="#" className="hover:text-primary">{t("aboutUs")}</a></li>
-            <li><a href="#" className="hover:text-primary">{t("contact")}</a></li>
-            <li><a href="#" className="hover:text-primary">{t("privacyPolicy")}</a></li>
+          <p className="text-[12px] tracking-[0.6em] text-[#CC9902] uppercase mb-4">{t("quickLinks")}</p>
+          <ul className="space-y-2 text-sm text-white/70">
+            <li><a href="#" className="hover:text-[#007FA3] transition-colors">{t("aboutUs")}</a></li>
+            <li><a href="#" className="hover:text-[#007FA3] transition-colors">{t("contact")}</a></li>
+            <li><a href="#" className="hover:text-[#007FA3] transition-colors">{t("privacyPolicy")}</a></li>
           </ul>
         </div>
-        {/* More columns... */}
+        <div className="md:col-span-2">
+          <p className="text-[12px] tracking-[0.6em] text-[#CC9902] uppercase mb-4">{t("connect")}</p>
+          <p className="text-sm text-white/70 leading-relaxed">
+            {t("cta")}
+          </p>
+        </div>
       </div>
-      <div className="container mx-auto px-4 mt-8 pt-8 border-t border-gray-50 text-center text-sm text-gray-400">
+      <div className="container relative mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-center text-xs tracking-[0.4em] text-white/60 uppercase">
         {t("copyright")}
       </div>
     </footer>

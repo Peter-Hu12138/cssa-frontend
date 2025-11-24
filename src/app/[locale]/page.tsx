@@ -2,12 +2,12 @@ import HeroSection from "@/components/home/HeroSection";
 import GuideSection from "@/components/home/GuideSection";
 import DepartmentsSection from "@/components/home/DepartmentsSection";
 import EventList from "@/components/home/EventList";
-import { useTranslation } from "@/app/i18n";
+import { useTranslation as getServerTranslation } from "@/app/i18n";
 import { GraduationCap, Users, Briefcase } from "lucide-react";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const { t } = await useTranslation(locale, "Home");
+  const { t } = await getServerTranslation(locale, "Home");
 
   const departments = [
     {

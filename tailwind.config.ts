@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
@@ -21,12 +22,15 @@ const config: Config = {
           DEFAULT: "#CC9902", // Luxury Accent
           light: "#E5B80B",
         },
-        background: "#FFFFFF", // Canvas White
-        "page-background": "#F8F9FA",
+        "mist-white": "#F4F7F6", // Added Mist White
+          background: "#F4F7F6", // Canvas White base
+          canvas: "#F4F7F6",
+          "page-background": "#F4F7F6",
         text: {
           DEFAULT: "#1A1A40", // Navy for text
           muted: "#64748B",
         },
+          boundless: "#007FA3",
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", "sans-serif"],
@@ -35,8 +39,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [typography],
 };
 export default config;

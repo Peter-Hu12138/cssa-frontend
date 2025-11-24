@@ -11,23 +11,24 @@ interface HeroSectionProps {
   subtitle: string;
   ctaPrimary: string;
   ctaSecondary: string;
-  locale: string;
 }
 
-export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary, locale }: HeroSectionProps) {
+export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary }: HeroSectionProps) {
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-navy text-white">
-      {/* Background Image with Navy Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-navy/80 z-10 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/50 via-transparent to-navy z-10" />
         <img
           src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop"
           alt="University Campus"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-40"
         />
-        <BackgroundPattern />
+        <div className="absolute inset-0 bg-gradient-to-b from-navy/90 via-navy/80 to-navy" />
+        <BackgroundPattern opacity={0.12} />
       </div>
+
+      {/* Ambient Orbs */}
+      <div className="absolute -top-10 left-10 w-80 h-80 bg-primary/25 blur-[160px] rounded-full" aria-hidden="true" />
+      <div className="absolute bottom-0 right-10 w-[420px] h-[420px] bg-gold/20 blur-[180px] rounded-full" aria-hidden="true" />
 
       {/* Animated Maple Leaf */}
       <div className="absolute top-1/4 right-[10%] z-10 opacity-20 hidden lg:block">
@@ -41,6 +42,9 @@ export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary,
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
+          <span className="text-[12px] tracking-[0.6em] text-gold uppercase mb-6 block">
+            CSSA // LEADERSHIP
+          </span>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 max-w-5xl mx-auto leading-tight text-white drop-shadow-lg">
             {title}
           </h1>
@@ -62,16 +66,16 @@ export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary,
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
           className="flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <Link href={`/${locale}/events`}>
-            <Button className="bg-primary hover:bg-primary-dark text-white px-10 py-7 text-lg font-bold uppercase tracking-widest rounded-sm shadow-lg hover:shadow-primary/50 transition-all duration-300 border-2 border-transparent">
+          <Button size="lg" className="px-12" asChild>
+            <Link href="/events">
               {ctaPrimary}
-            </Button>
-          </Link>
-          <Link href={`/${locale}/about`}>
-            <Button variant="outline" className="border-gold text-gold hover:bg-gold hover:text-navy px-10 py-7 text-lg font-bold uppercase tracking-widest rounded-sm bg-transparent transition-all duration-300">
+            </Link>
+          </Button>
+          <Button size="lg" variant="secondary" className="px-12" asChild>
+            <Link href="/about">
               {ctaSecondary}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </motion.div>
       </div>
       

@@ -3,7 +3,13 @@ import resourcesToBackend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 import { getOptions } from './settings'
 
-const initI18next = async (lng: string, ns: string) => {
+type NamespaceInput = string | string[]
+
+interface TranslationOptions {
+  keyPrefix?: string
+}
+
+const initI18next = async (lng: string, ns: NamespaceInput) => {
   const i18nInstance = createInstance()
   await i18nInstance
     .use(initReactI18next)
@@ -15,10 +21,11 @@ const initI18next = async (lng: string, ns: string) => {
   return i18nInstance
 }
 
-export async function useTranslation(lng: string, ns: string, options: any = {}) {
+export async function useTranslation(lng: string, ns: NamespaceInput, options: TranslationOptions = {}) {
   const i18nextInstance = await initI18next(lng, ns)
+  const namespaceForT = Array.isArray(ns) ? ns[0] : ns
   return {
-    t: i18nextInstance.getFixedT(lng, Array.isArray(ns) ? ns[0] : ns, options.keyPrefix),
+    t: i18nextInstance.getFixedT(lng, namespaceForT, options.keyPrefix),
     i18n: i18nextInstance
   }
 }

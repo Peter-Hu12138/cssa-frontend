@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import i18next from 'i18next'
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
+import type { UseTranslationOptions as UseTranslationOptionsOrg } from 'react-i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import { getOptions, languages, cookieName } from './settings'
+import { getOptions, languages } from './settings'
 
 const runsOnServerSide = typeof window === 'undefined'
 
@@ -26,29 +27,17 @@ i18next
     preload: runsOnServerSide ? languages : []
   })
 
-export function useTranslation(lng: string | undefined, ns: string, options: any = {}) {
-  const ret = useTranslationOrg(ns, options)
+export function useTranslation(
+  lng: string | undefined,
+  ns: string,
+  options: UseTranslationOptionsOrg = {}
+) {
+  const ret = useTranslationOrg(ns, lng ? { ...options, lng } : options)
   const { i18n } = ret
-  if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
+
+  useEffect(() => {
+    if (!lng || i18n.resolvedLanguage === lng) return
     i18n.changeLanguage(lng)
-  } else {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [activeLng, setActiveLng] = useState(i18n.resolvedLanguage)
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (activeLng === i18n.resolvedLanguage) return
-      setActiveLng(i18n.resolvedLanguage)
-    }, [activeLng, i18n.resolvedLanguage])
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (!lng || i18n.resolvedLanguage === lng) return
-      i18n.changeLanguage(lng)
-    }, [lng, i18n])
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    if (activeLng !== lng) {
-       // This is a bit aggressive, useEffect should handle it, but for hydration mismatch prevention:
-       // i18n.changeLanguage(lng) 
-    }
-  }
+  }, [lng, i18n])
   return ret
 }

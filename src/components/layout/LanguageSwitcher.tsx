@@ -1,79 +1,48 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Globe, Check } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher({ lng }: { lng: string }) {
   const router = useRouter();
-  const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const switchLanguage = (newLocale: string) => {
-    if (lng === newLocale) {
-      setIsOpen(false);
-      return;
-    }
-    
-    // Set cookie
-    document.cookie = `i18next=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
-    
-    // Refresh the page to apply the new locale
-    router.refresh();
-    setIsOpen(false);
+  const writeLocaleCookie = (newLocale: string) => {
+    if (typeof document === "undefined") return;
+    const cookieSetter = Object.getOwnPropertyDescriptor(Document.prototype, "cookie")?.set;
+    const cookieValue = `i18next=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    cookieSetter?.call(document, cookieValue);
   };
 
-  const languages = [
-    { code: 'en', label: 'English', flag: '🇺🇸' }, // Using emoji flags for simplicity and reliability
-    { code: 'zh', label: '中文', flag: '🇨🇳' }
-  ];
+  const switchLanguage = (newLocale: string) => {
+    if (lng === newLocale) return;
+    writeLocaleCookie(newLocale);
+    router.refresh();
+  };
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 text-gray-600 hover:text-primary hover:bg-gray-50 transition-colors"
+    <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1 backdrop-blur-sm">
+      <button
+        onClick={() => switchLanguage('en')}
+        className={cn(
+          "px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest transition-all duration-300",
+          lng === 'en' 
+            ? "bg-white text-navy shadow-lg transform scale-105" 
+            : "text-white/60 hover:text-white"
+        )}
       >
-        <Globe className="w-4 h-4" />
-        <span className="uppercase font-medium">{lng}</span>
-      </Button>
-
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border border-gray-100 py-1 z-50 animate-in fade-in zoom-in-95 duration-200">
-          {languages.map((language) => (
-            <button
-              key={language.code}
-              onClick={() => switchLanguage(language.code)}
-              className={cn(
-                "w-full text-left px-4 py-2 text-sm flex items-center justify-between hover:bg-gray-50 transition-colors",
-                lng === language.code ? "text-primary font-medium" : "text-gray-600"
-              )}
-            >
-              <span className="flex items-center gap-2">
-                <span className="text-base">{language.flag}</span>
-                {language.label}
-              </span>
-              {lng === language.code && <Check className="w-3 h-3" />}
-            </button>
-          ))}
-        </div>
-      )}
+        EN
+      </button>
+      <button
+        onClick={() => switchLanguage('zh')}
+        className={cn(
+          "px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest transition-all duration-300",
+          lng === 'zh' 
+            ? "bg-white text-navy shadow-lg transform scale-105" 
+            : "text-white/60 hover:text-white"
+        )}
+      >
+        中
+      </button>
     </div>
   );
 }

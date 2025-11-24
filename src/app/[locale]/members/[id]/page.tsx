@@ -72,8 +72,6 @@ export default function MemberProfilePage({ params }: { params: Promise<{ locale
     }
   };
 
-  const bio = locale === "en" && member.bio_en ? member.bio_en : member.bio;
-
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <Button 
@@ -94,7 +92,7 @@ export default function MemberProfilePage({ params }: { params: Promise<{ locale
           {getRoleBadge(member.role_within_department)}
           {member.title && (
             <Badge variant="outline" className="border-primary text-primary">
-              {t(`titles.${member.title}` as any)}
+              {t(`titles.${member.title}`)}
             </Badge>
           )}
         </div>
@@ -199,7 +197,7 @@ export default function MemberProfilePage({ params }: { params: Promise<{ locale
               <div className="space-y-4">
                 <div className="flex justify-between py-2 border-b border-gray-50">
                   <span className="text-gray-500 text-sm">{t("titles.P")}</span>
-                  <span className="font-medium text-gray-900">{member.title ? t(`titles.${member.title}` as any) : t("none")}</span>
+                  <span className="font-medium text-gray-900">{member.title ? t(`titles.${member.title}`) : t("none")}</span>
                 </div>
                 <div className="flex justify-between py-2">
                   <span className="text-gray-500 text-sm">{t("labels.joined")}</span>

@@ -1,24 +1,26 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { 
-  ArrowLeft, 
-  Building2, 
-  Users, 
-  User, 
-  Mail, 
+import { useQuery } from "@tanstack/react-query";
+import {
+  ArrowLeft,
+  Building2,
+  Users,
+  Mail,
   GraduationCap,
   Linkedin,
   Github,
   MessageCircle,
+  Sparkles,
+  FolderTree,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
 import { API_URL } from "@/lib/config";
-import { useTranslation } from "@/app/i18n/client";
 import type { Department, MemberPublic as Member, PaginatedResponse } from "@/types/api";
 
 async function fetchDepartments(): Promise<Department[]> {
@@ -41,9 +43,6 @@ export default function DepartmentDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const { t, i18n } = useTranslation(undefined, "Department", {});
-  const locale = i18n.resolvedLanguage || "en";
-  const { t: tCommon } = useTranslation(locale, "Common", {});
 
   // Fetch all departments to find current and children
   const { data: departments, isLoading: isLoadingDepts } = useQuery({
@@ -78,9 +77,9 @@ export default function DepartmentDetailPage() {
 
   if (!department) {
     return (
-      <div className="container mx-auto py-12 px-4 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Department not found</h2>
-        <Button onClick={() => router.back()} className="mt-4" variant="outline">
+      <div className="container mx-auto py-24 px-6 text-center">
+        <h2 className="text-2xl font-serif text-navy mb-4">Department not found</h2>
+        <Button onClick={() => router.back()} variant="secondary">
           Go Back
         </Button>
       </div>
@@ -88,135 +87,177 @@ export default function DepartmentDetailPage() {
   }
 
   return (
-    <div className="container mx-auto py-12 px-4 max-w-5xl">
-      <Button 
-        variant="ghost" 
-        className="mb-6 pl-0 hover:pl-2 transition-all" 
-        onClick={() => router.back()}
-      >
-        <ArrowLeft className="w-4 h-4 mr-2" />
-        Back to Departments
-      </Button>
+    <main className="min-h-screen bg-canvas pt-28 pb-20">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <Button
+          variant="ghost"
+          className="mb-6 pl-0 text-navy hover:text-primary hover:pl-2 transition-all"
+          onClick={() => router.back()}
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Departments
+        </Button>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
-        <div className="bg-gradient-to-r from-red-600 to-red-800 p-8 text-white">
-          <div className="flex items-center mb-2 opacity-80 text-sm font-medium uppercase tracking-wider">
-            <Building2 className="w-4 h-4 mr-2" />
-            Department
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">{department.name}</h1>
-          {department.english_name && (
-            <p className="text-xl opacity-90 font-light">{department.english_name}</p>
-          )}
-          {department.super_department_name && (
-            <div className="mt-4 inline-flex items-center bg-white/10 px-3 py-1 rounded-full text-sm backdrop-blur-sm">
-              <span className="opacity-70 mr-2">Part of:</span>
-              <span className="font-medium">{department.super_department_name}</span>
+        <section className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-[#1A1A40] via-[#2D1E4F] to-[#7A1E2F] text-white p-8 md:p-12 shadow-2xl">
+          <BackgroundPattern opacity={0.12} />
+          <div className="absolute -top-10 right-0 w-72 h-72 bg-gold/20 blur-[160px] rounded-full" aria-hidden />
+          <div className="relative z-10">
+            <div className="flex items-center gap-3 text-xs uppercase tracking-[0.5em] text-white/70 mb-4">
+              <Building2 className="w-4 h-4" />
+              Department Profile
             </div>
-          )}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Sub-departments Section */}
-        <div className="lg:col-span-2 space-y-8">
-          {subDepartments.length > 0 && (
-            <section>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                <FolderTreeIcon className="w-5 h-5 mr-2 text-primary" />
-                Sub-Departments
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {subDepartments.map(sub => (
-                  <a 
-                    key={sub.id} 
-                    href={`/departments/${sub.id}`}
-                    className="block p-4 rounded-lg border border-gray-200 hover:border-primary hover:shadow-md transition-all bg-white group"
-                  >
-                    <h4 className="font-bold text-gray-900 group-hover:text-primary transition-colors">
-                      {sub.name}
-                    </h4>
-                    {sub.english_name && (
-                      <p className="text-sm text-gray-500 mt-1">{sub.english_name}</p>
-                    )}
-                    <div className="mt-3 flex items-center text-xs text-gray-400 font-medium uppercase tracking-wide">
-                      View Details <ArrowLeft className="w-3 h-3 ml-1 rotate-180" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Members Section */}
-          <section>
-            <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-              <Users className="w-5 h-5 mr-2 text-primary" />
-              Team Members
-            </h3>
-            
-            {members && members.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {members.map(member => (
-                  <MemberCard key={member.id} member={member} />
-                ))}
-              </div>
-            ) : (
-              <div className="bg-gray-50 rounded-lg p-8 text-center border border-dashed border-gray-200">
-                <Users className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No members listed in this department.</p>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold tracking-tight mb-3">
+              {department.name}
+            </h1>
+            {department.english_name && (
+              <p className="text-xl text-white/80 font-light">{department.english_name}</p>
+            )}
+            {department.super_department_name && (
+              <div className="mt-6 inline-flex items-center bg-white/10 px-4 py-2 rounded-full text-sm backdrop-blur">
+                <span className="text-white/70 mr-2">Part of</span>
+                <span className="font-semibold">{department.super_department_name}</span>
               </div>
             )}
-          </section>
-        </div>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                <p className="text-[11px] uppercase tracking-[0.4em] text-white/70">Members</p>
+                <p className="font-serif text-3xl mt-3">{members.length}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                <p className="text-[11px] uppercase tracking-[0.4em] text-white/70">Sub-units</p>
+                <p className="font-serif text-3xl mt-3">{subDepartments.length}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-white/10 p-4">
+                <p className="text-[11px] uppercase tracking-[0.4em] text-white/70">ID</p>
+                <p className="font-serif text-3xl mt-3">#{department.id}</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* Sidebar Info */}
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">Department Info</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm">
-              {department.description && (
-                <div className="pb-4 border-b border-gray-100">
-                  <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-2">
-                    About
-                  </span>
-                  <p className="text-gray-600 leading-relaxed">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10 mt-12">
+          <div className="space-y-10">
+            {department.description && (
+              <Card className="border-none shadow-xl bg-white/90 backdrop-blur">
+                <CardHeader>
+                  <CardTitle className="font-serif text-2xl text-navy flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                    About this team
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 leading-relaxed text-base">
                     {department.description}
                   </p>
-                </div>
-              )}
+                </CardContent>
+              </Card>
+            )}
 
-              <div>
-                <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                  Total Members
-                </span>
-                <p className="font-medium text-lg">{members?.length || 0}</p>
+            {subDepartments.length > 0 && (
+              <section className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-serif text-2xl text-navy flex items-center gap-3">
+                    <FolderTree className="w-6 h-6 text-primary" />
+                    Sub-departments
+                  </h3>
+                  <span className="text-xs uppercase tracking-[0.4em] text-gray-500">{subDepartments.length} units</span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {subDepartments.map((sub) => (
+                    <Card key={sub.id} className="border border-gray-200/70 shadow-lg hover:-translate-y-1 hover:border-primary/40 transition-all">
+                      <CardContent className="p-5">
+                        <p className="text-[11px] uppercase tracking-[0.4em] text-gold mb-2">Division</p>
+                        <h4 className="font-serif text-xl text-navy mb-1">{sub.name}</h4>
+                        {sub.english_name && (
+                          <p className="text-sm text-gray-500 mb-4">{sub.english_name}</p>
+                        )}
+                        <Button variant="ghost" className="text-primary px-0" asChild>
+                          <Link href={`/departments/${sub.id}`}>
+                            View details <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
+                          </Link>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-gold">Team</p>
+                  <h3 className="font-serif text-3xl text-navy">Members</h3>
+                </div>
               </div>
-              
-              {subDepartments.length > 0 && (
-                <div className="pt-4 border-t border-gray-100">
-                  <span className="block text-gray-500 text-xs uppercase tracking-wider font-semibold mb-1">
-                    Sub-units
-                  </span>
-                  <p className="font-medium text-lg">{subDepartments.length}</p>
+
+              {members.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {members.map((member) => (
+                    <MemberCard key={member.id} member={member} />
+                  ))}
+                </div>
+              ) : (
+                <div className="border border-dashed border-gray-300 rounded-3xl p-10 text-center bg-white/60">
+                  <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500">No members listed in this department yet.</p>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </section>
+          </div>
+
+          <div className="space-y-6">
+            <Card className="border-none shadow-xl bg-white/90">
+              <CardHeader>
+                <CardTitle className="text-navy">Department Highlights</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-5 text-sm text-gray-600">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-gold mb-2">Total Members</p>
+                  <p className="text-3xl font-serif text-navy">{members.length}</p>
+                </div>
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-gold mb-2">Sub-units</p>
+                  <p className="text-3xl font-serif text-navy">{subDepartments.length}</p>
+                </div>
+                <div className="border-t border-gray-100 pt-4">
+                  <p className="text-[11px] uppercase tracking-[0.4em] text-gold mb-2">Parent Division</p>
+                  <p className="text-base text-gray-700">{department.super_department_name || "Independent"}</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-navy text-white border-none shadow-xl overflow-hidden relative">
+              <BackgroundPattern opacity={0.06} />
+              <CardHeader>
+                <CardTitle className="text-white font-serif text-2xl">Need to collaborate?</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-sm text-white/80">
+                <p>Reach out to department leads to co-host events or request project support.</p>
+                <Button variant="secondary" className="w-full" asChild>
+                  <Link href="/events">View Initiatives</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
 function MemberCard({ member }: { member: Member }) {
   const getRoleBadge = (role: string) => {
     switch (role) {
-      case 'HD': return <Badge className="bg-red-600 hover:bg-red-700">Head</Badge>;
-      case 'DH': return <Badge variant="secondary" className="bg-red-100 text-red-800 hover:bg-red-200">Deputy Head</Badge>;
-      default: return <Badge variant="outline" className="text-gray-500 border-gray-200">Member</Badge>;
+      case 'HD':
+        return <Badge className="bg-primary text-white">Head</Badge>;
+      case 'DH':
+        return <Badge variant="secondary" className="bg-gold/20 text-gold">Deputy Head</Badge>;
+      default:
+        return <Badge variant="outline" className="text-gray-500 border-gray-200">Member</Badge>;
     }
   };
 
@@ -225,8 +266,8 @@ function MemberCard({ member }: { member: Member }) {
     : null;
 
   return (
-    <div className="flex items-start p-4 rounded-lg border border-gray-200 bg-white hover:shadow-sm transition-shadow">
-      <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold mr-4 flex-shrink-0 overflow-hidden border border-gray-100">
+    <div className="flex items-start gap-4 p-5 rounded-[24px] border border-gray-200/80 bg-white/90 backdrop-blur hover:-translate-y-0.5 transition-all">
+      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary/20 to-gold/20 text-navy flex items-center justify-center font-serif text-xl flex-shrink-0 overflow-hidden border border-white">
         {avatarUrl ? (
           <img src={avatarUrl} alt={member.short_name} className="w-full h-full object-cover" />
         ) : (
@@ -234,129 +275,78 @@ function MemberCard({ member }: { member: Member }) {
         )}
       </div>
       <div className="flex-grow min-w-0">
-        <div className="flex items-center justify-between mb-1">
-          <h4 className="font-bold text-gray-900 truncate pr-2">{member.short_name}</h4>
+        <div className="flex items-center justify-between gap-2 mb-1">
+          <h4 className="font-serif text-xl text-navy truncate">{member.short_name}</h4>
           {getRoleBadge(member.role_within_department || "")}
         </div>
-        
         {member.title && (
-          <p className="text-xs text-primary font-medium mb-1">{member.title}</p>
+          <p className="text-xs uppercase tracking-[0.4em] text-gold mb-2">{member.title}</p>
         )}
-        
-        <div className="text-xs text-gray-500 space-y-1 mt-2">
-          <p className="truncate font-medium text-gray-700">{member.full_name}</p>
-          
-          {(member.program || member.year_of_study || member.faculty) && (
-             <div className="flex items-center text-gray-500">
-               <GraduationCap className="w-3 h-3 mr-1.5 flex-shrink-0" />
-               <span className="truncate">
-                 {[
-                   member.year_of_study ? `Year ${member.year_of_study}` : null,
-                   member.program,
-                   member.faculty
-                 ].filter(Boolean).join(" • ")}
-               </span>
-             </div>
-          )}
+        <p className="text-sm text-gray-500 font-medium mb-2">{member.full_name}</p>
 
+        {(member.program || member.year_of_study || member.faculty) && (
+          <div className="flex items-center text-gray-500 text-xs mb-1">
+            <GraduationCap className="w-3 h-3 mr-1.5" />
+            <span className="truncate">
+              {[
+                member.year_of_study ? `Year ${member.year_of_study}` : null,
+                member.program,
+                member.faculty,
+              ]
+                .filter(Boolean)
+                .join(" • ")}
+            </span>
+          </div>
+        )}
+
+        {member.email && (
+          <div className="flex items-center text-gray-500 text-xs mb-1">
+            <Mail className="w-3 h-3 mr-1.5" />
+            <a href={`mailto:${member.email}`} className="truncate hover:text-primary transition-colors">
+              {member.email}
+            </a>
+          </div>
+        )}
+
+        <div className="flex items-center gap-3 mt-3 text-gray-400">
+          {member.linkedin_url && (
+            <a
+              href={member.linkedin_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#0a66c2] transition-colors"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+          )}
+          {member.github_url && (
+            <a
+              href={member.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gray-900 transition-colors"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
           {member.email && (
-            <div className="flex items-center text-gray-500">
-              <Mail className="w-3 h-3 mr-1.5 flex-shrink-0" />
-              <a href={`mailto:${member.email}`} className="truncate hover:text-primary transition-colors">
-                {member.email}
-              </a>
-            </div>
+            <a href={`mailto:${member.email}`} className="hover:text-primary transition-colors">
+              <MessageCircle className="w-4 h-4" />
+            </a>
           )}
-
-          <div className="flex items-center gap-2 mt-1">
-            {member.linkedin_url && (
-              <a 
-                href={member.linkedin_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-[#0077b5] transition-colors"
-                title="LinkedIn"
-              >
-                <Linkedin className="w-3.5 h-3.5" />
-              </a>
-            )}
-            {member.github_url && (
-              <a 
-                href={member.github_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-900 transition-colors"
-                title="GitHub"
-              >
-                <Github className="w-3.5 h-3.5" />
-              </a>
-            )}
-            {member.wechat_id && (
-              <div 
-                className="text-gray-400 hover:text-[#07c160] transition-colors cursor-help"
-                title={`WeChat: ${member.wechat_id}`}
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-              </div>
-            )}
-          </div>
-
-          {member.bio && (
-            <p className="text-gray-400 italic line-clamp-2 mt-1 border-t border-gray-50 pt-1">
-              {member.bio}
-            </p>
+          {member.wechat_id && (
+            <span className="hover:text-[#07c160] transition-colors cursor-help" title={`WeChat: ${member.wechat_id}`}>
+              <MessageCircle className="w-4 h-4" />
+            </span>
           )}
-
-          {/* Social Links */}
-          <div className="flex space-x-3 mt-2">
-            {member.linkedin_url && (
-              <a 
-                href={member.linkedin_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            )}
-            {member.github_url && (
-              <a 
-                href={member.github_url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            )}
-            {member.email && (
-              <a 
-                href={`mailto:${member.email}`} 
-                className="text-gray-500 hover:text-primary transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
-            )}
-          </div>
         </div>
+
+        {member.bio && (
+          <p className="text-xs text-gray-500 italic mt-3 line-clamp-3">
+            {member.bio}
+          </p>
+        )}
       </div>
     </div>
-  );
-}
-
-function FolderTreeIcon({ className }: { className?: string }) {
-  return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className={className}
-    >
-      <path d="M20 10c0-4.418-3.582-8-8-8s-8 3.582-8 8c0 1.5.4 2.9 1.1 4.1l-5.1 8.9h22l-5.1-8.9c.7-1.2 1.1-2.6 1.1-4.1z" />
-    </svg>
   );
 }

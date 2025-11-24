@@ -11,9 +11,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { API_URL } from "@/lib/config";
 import { DEFAULT_LINKS } from "@/lib/links";
 import { useTranslation } from "@/app/i18n/client";
+import type { ExternalLink } from "@/types/api";
+
+type ExternalLinkLike = ExternalLink | (Omit<ExternalLink, "id"> & { id?: number });
 
 export function FloatingSocials({ lng }: { lng: string }) {
   const { data: fetchedLinks } = useExternalLinks();
@@ -21,9 +23,8 @@ export function FloatingSocials({ lng }: { lng: string }) {
   const [weChatId, setWeChatId] = useState("");
   const { t } = useTranslation(lng, "FloatingSocials", {});
 
-  const activeLinks = useMemo(() => {
-    // Start with a map of defaults for easy lookup/replacement
-    const linkMap = new Map<string, any>();
+  const activeLinks = useMemo<ExternalLinkLike[]>(() => {
+    const linkMap = new Map<string, ExternalLinkLike>();
 
     DEFAULT_LINKS.forEach((link) => {
       if (link.slug) linkMap.set(link.slug, link);
@@ -41,7 +42,7 @@ export function FloatingSocials({ lng }: { lng: string }) {
     return Array.from(linkMap.values()).sort((a, b) => (a.order || 0) - (b.order || 0));
   }, [fetchedLinks]);
 
-  const handleLinkClick = (e: React.MouseEvent, link: any) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: ExternalLinkLike) => {
     if (link.slug === "wechat") {
       e.preventDefault();
       setWeChatId(link.url);
@@ -54,7 +55,9 @@ export function FloatingSocials({ lng }: { lng: string }) {
       <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end space-y-3">
         {activeLinks.map((link) => {
           // Dynamically resolve icon component
-          const IconComponent = (LucideIcons as any)[link.icon_name] || LucideIcons.Link;
+          const IconComponent =
+            (LucideIcons as Record<string, React.ComponentType<{ className?: string }>>)[link.icon_name] ||
+            LucideIcons.Link;
 
           return (
             <a

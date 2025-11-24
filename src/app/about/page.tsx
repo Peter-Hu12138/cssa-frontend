@@ -142,7 +142,7 @@ export default function AboutPage() {
           </div>
           
           <blockquote className="text-3xl md:text-4xl font-serif text-gray-900 leading-relaxed italic">
-            "{t("missionText")}"
+            &ldquo;{t("missionText")}&rdquo;
           </blockquote>
           
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
