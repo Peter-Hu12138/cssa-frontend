@@ -1,10 +1,12 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslation } from "@/app/i18n/client";
 import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
+import cssaLogo from "../../../img/cssa logo.avif";
 
 export function Navbar({ lng }: { lng: string }) {
   const { t } = useTranslation(lng, "Navigation", {});
@@ -17,11 +19,16 @@ export function Navbar({ lng }: { lng: string }) {
       <div className="container mx-auto px-6 h-20 flex items-center justify-between relative">
         {/* Logo Area */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-12 h-12 bg-white/10 border border-white/30 text-white flex items-center justify-center font-serif text-2xl rounded-full shadow-lg">
-            C
-          </div>
+          <Image
+            src={cssaLogo}
+            alt="UTCSSA logo"
+            width={48}
+            height={48}
+            className="h-12 w-12 object-contain"
+            priority
+          />
           <span className="font-serif text-2xl tracking-tight text-white group-hover:text-gold transition-colors">
-            CSSA
+            UTCSSA
           </span>
         </Link>
 

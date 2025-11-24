@@ -1,5 +1,5 @@
 /**
- * CSSA Member Website API Types
+ * UTCSSA Member Website API Types
  * Generated based on OpenAPI 3.0.3 Schema
  */
 

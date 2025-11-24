@@ -24,7 +24,7 @@ export const DEFAULT_LINKS = [
   {
     name: "Email",
     icon_name: "Mail",
-    url: "mailto:contact@cssa.ca",
+    url: "mailto:contact@utcssa.ca",
     slug: "email",
     order: 4,
   },

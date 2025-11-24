@@ -63,7 +63,7 @@ export default function GuideSection({ title, description, cta, year }: GuideSec
             
             <div className="w-full h-full bg-navy flex flex-col items-center justify-center border border-white/5 relative overflow-hidden">
               <BackgroundPattern opacity={0.08} />
-              <span className="font-serif text-6xl font-bold text-gold opacity-80 z-10">CSSA</span>
+              <span className="font-serif text-6xl font-bold text-gold opacity-80 z-10">UTCSSA</span>
               <span className="font-sans text-xl font-bold uppercase tracking-widest text-white mt-4 z-10">{guideYearLabel}</span>
               <div className="w-12 h-1 bg-primary mt-6 z-10" />
             </div>

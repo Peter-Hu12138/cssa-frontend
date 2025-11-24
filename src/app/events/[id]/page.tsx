@@ -204,7 +204,7 @@ export default function EventDetailPage() {
                   Want to partner on logistics, sponsorships, or media coverage? Drop us a line and our operations pod will follow up within 48 hours.
                 </p>
                 <Button variant="secondary" className="w-full" asChild>
-                  <a href="mailto:events@cssa.ca">Connect with us</a>
+                  <a href="mailto:events@utcssa.ca">Connect with us</a>
                 </Button>
               </CardContent>
             </Card>

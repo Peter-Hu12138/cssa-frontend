@@ -47,7 +47,7 @@ export default function JoinPage() {
         <div className="absolute bottom-0 right-0 w-[420px] h-[420px] bg-gold/20 blur-[200px] rounded-full" aria-hidden="true" />
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-[12px] tracking-[0.6em] text-gold uppercase mb-6">Join CSSA</p>
+            <p className="text-[12px] tracking-[0.6em] text-gold uppercase mb-6">Join UTCSSA</p>
             <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-6">
               {t("title")}
             </h1>

@@ -32,7 +32,7 @@ export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary 
 
       {/* Animated Maple Leaf */}
       <div className="absolute top-1/4 right-[10%] z-10 opacity-20 hidden lg:block">
-        <MapleLeaf className="w-64 h-64 text-primary" />
+        <MapleLeaf className="w-64 h-64" />
       </div>
 
       {/* Content */}
@@ -43,7 +43,7 @@ export default function HeroSection({ title, subtitle, ctaPrimary, ctaSecondary 
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <span className="text-[12px] tracking-[0.6em] text-gold uppercase mb-6 block">
-            CSSA // LEADERSHIP
+            UTCSSA // LEADERSHIP
           </span>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 max-w-5xl mx-auto leading-tight text-white drop-shadow-lg">
             {title}
