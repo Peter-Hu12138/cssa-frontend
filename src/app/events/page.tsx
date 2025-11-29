@@ -28,7 +28,9 @@ export default function EventsPage() {
       past: [],
     };
 
-    if (!events) return base;
+    if (!Array.isArray(events) || events.length === 0) {
+      return base;
+    }
 
     const now = new Date();
 
@@ -59,7 +61,7 @@ export default function EventsPage() {
   const filteredEvents = categorizedEvents[activeCategory] ?? [];
 
   const uniqueDepartments = React.useMemo(() => {
-    if (!events) return 0;
+    if (!Array.isArray(events) || events.length === 0) return 0;
     return new Set(events.map((event) => event.department_in_charge_detail?.name)).size;
   }, [events]);
 
