@@ -2,13 +2,14 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Sparkles, PartyPopper, Share2 } from "lucide-react";
+import { Sparkles, PartyPopper, Share2, Loader2 } from "lucide-react";
 import EventCard from "@/components/ui/EventCard";
 import EventCardSkeleton from "@/components/ui/EventCardSkeleton";
 import { useEvents } from "@/hooks/useEvents";
 import { useTranslation } from "@/app/i18n/client";
 import { BackgroundPattern } from "@/components/ui/BackgroundPattern";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { Event } from "@/types/api";
 
 type EventCategory = "upcoming" | "ongoing" | "past";
@@ -17,6 +18,8 @@ export default function EventsPage() {
   const { data: events, isLoading, isError } = useEvents();
   const [activeCategory, setActiveCategory] = useState<EventCategory>("upcoming");
   const { t, i18n } = useTranslation(undefined, "Events", {});
+  const eventCount = Array.isArray(events) ? events.length : 0;
+  const showPageLoading = isLoading && eventCount === 0;
 
   const categorizedEvents = React.useMemo<Record<EventCategory, Event[]>>(() => {
     const base: Record<EventCategory, Event[]> = {
@@ -85,34 +88,40 @@ export default function EventsPage() {
         <div className="absolute -top-24 right-10 w-72 h-72 bg-gold/25 blur-[180px] rounded-full" aria-hidden="true" />
         <div className="absolute bottom-0 left-0 w-[520px] h-[520px] bg-primary/20 blur-[260px] rounded-full" aria-hidden="true" />
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.6em] text-gold bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-5">
-              <Sparkles className="w-4 h-4" />
-              {t("tagline")}
-            </div>
-            <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-6">
-              {t("title")}
-            </h1>
-            <p className="font-sans text-lg text-white/80">
-              {t("subtitle")}
-            </p>
-          </div>
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="px-10" asChild>
-              <Link href="/events">{t("primaryCta")}</Link>
-            </Button>
-            <Button size="lg" variant="secondary" className="px-10" asChild>
-              <Link href="/join">{t("secondaryCta")}</Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
-            {stats.map((stat) => (
-              <div key={stat.label} className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur py-6 px-5">
-                <p className="text-sm uppercase tracking-[0.3em] text-white/70">{stat.label}</p>
-                <p className="mt-3 font-serif text-4xl text-white">{stat.value}</p>
+          {showPageLoading ? (
+            <LoadingHero />
+          ) : (
+            <>
+              <div className="text-center max-w-3xl mx-auto">
+                <div className="inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.6em] text-gold bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-5">
+                  <Sparkles className="w-4 h-4" />
+                  {t("tagline")}
+                </div>
+                <h1 className="font-serif text-4xl md:text-6xl leading-tight mb-6">
+                  {t("title")}
+                </h1>
+                <p className="font-sans text-lg text-white/80">
+                  {t("subtitle")}
+                </p>
               </div>
-            ))}
-          </div>
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button size="lg" className="px-10" asChild>
+                  <Link href="/events">{t("primaryCta")}</Link>
+                </Button>
+                <Button size="lg" variant="secondary" className="px-10" asChild>
+                  <Link href="/join">{t("secondaryCta")}</Link>
+                </Button>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur py-6 px-5">
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/70">{stat.label}</p>
+                    <p className="mt-3 font-serif text-4xl text-white">{stat.value}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -143,7 +152,12 @@ export default function EventsPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
               {isLoading ? (
-                Array.from({ length: 6 }).map((_, i) => <EventCardSkeleton key={i} />)
+                <>
+                  <LoadingShowcase />
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <EventCardSkeleton key={i} />
+                  ))}
+                </>
               ) : !isError && filteredEvents.length > 0 ? (
                 filteredEvents.map((event) => (
                   <EventCard key={event.id} event={event} lng={i18n.language} />
@@ -198,5 +212,73 @@ export default function EventsPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function LoadingShowcase() {
+  return (
+    <div className="col-span-full">
+      <div className="relative overflow-hidden rounded-[32px] border border-white/20 bg-gradient-to-br from-[#0F1B2D] via-[#1F253E] to-[#521826] text-white p-8 shadow-2xl">
+        <BackgroundPattern opacity={0.05} />
+        <div className="absolute -top-20 -right-10 w-64 h-64 bg-gold/20 blur-[140px] rounded-full animate-[pulse_4s_ease-in-out_infinite]" aria-hidden />
+        <div className="absolute -bottom-10 -left-10 w-56 h-56 bg-primary/30 blur-[160px] rounded-full animate-[pulse_5s_ease-in-out_infinite]" aria-hidden />
+        <div className="relative z-10 flex flex-col gap-4">
+          <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.5em] text-gold/80">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            <span>Curating timeline</span>
+          </div>
+          <h3 className="font-serif text-3xl">Preparing the next unforgettable moments</h3>
+          <p className="text-white/80 max-w-3xl">
+            We&apos;re syncing departments, volunteers, and venues to bring you the latest happenings. Hang tight while
+            we polish the showcase for you.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {["Coordinating teams", "Designing posters", "Scheduling venues"].map((chip) => (
+              <span
+                key={chip}
+                className="text-xs uppercase tracking-[0.4em] border border-white/20 rounded-full px-4 py-1 bg-white/10 backdrop-blur"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LoadingHero() {
+  return (
+    <>
+      <div className="text-center max-w-3xl mx-auto" role="status" aria-live="polite" aria-busy="true">
+        <div className="inline-flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.6em] text-gold bg-white/10 border border-white/20 rounded-full px-5 py-2 mb-5">
+          <Skeleton className="h-4 w-40 bg-white/30" />
+        </div>
+        <div className="space-y-4">
+          <Skeleton className="h-12 w-full max-w-2xl mx-auto bg-white/40" />
+          <Skeleton className="h-4 w-full max-w-xl mx-auto bg-white/30" />
+          <Skeleton className="h-4 w-3/5 max-w-md mx-auto bg-white/20" />
+        </div>
+        <div className="relative w-40 h-40 mx-auto mt-10">
+          <div className="absolute inset-0 rounded-full border border-white/20 animate-ping" />
+          <div className="absolute inset-4 rounded-full border border-gold/30 animate-[spin_8s_linear_infinite]" />
+          <div className="absolute inset-10 rounded-full bg-gradient-to-br from-white/20 to-gold/30 blur-2xl animate-[pulse_3s_ease-in-out_infinite]" />
+        </div>
+        <span className="sr-only">Loading events</span>
+      </div>
+      <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <Skeleton className="h-12 w-full sm:w-48 bg-white/30" />
+        <Skeleton className="h-12 w-full sm:w-48 bg-white/20" />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur py-6 px-5">
+            <Skeleton className="h-3 w-24 bg-white/30 mb-4" />
+            <Skeleton className="h-10 w-16 bg-white/40" />
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useGuides } from "@/hooks/useGuides";
 import { Guide } from "@/types/api";
 import { API_URL } from "@/lib/config";
@@ -60,7 +61,7 @@ export default function GuidesPage() {
               <a href="#guides">{t("primaryCta")}</a>
             </Button>
             <Button size="lg" variant="secondary" className="px-10" asChild>
-              <a href="/join">{t("secondaryCta")}</a>
+              <Link href="/join">{t("secondaryCta")}</Link>
             </Button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
