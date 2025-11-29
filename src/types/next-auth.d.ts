@@ -1,29 +1,3 @@
-import NextAuth, { DefaultSession } from "next-auth"
-import { JWT } from "next-auth/jwt"
-
-declare module "next-auth" {
-  /**
-   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
-   */
-  interface Session {
-    accessToken?: string
-    refreshToken?: string
-    user: {
-      id?: string
-    } & DefaultSession["user"]
-  }
-
-  interface User {
-    access?: string
-    refresh?: string
-    id?: string
-  }
-}
-
-declare module "next-auth/jwt" {
-  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
-  interface JWT {
-    accessToken?: string
-    refreshToken?: string
-  }
-}
+// Intentionally left blank. Auth packages were removed from the landing page build,
+// but this placeholder file remains so the compiler doesn't try to load the old
+// `next-auth` ambient module declarations.
