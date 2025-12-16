@@ -25,7 +25,9 @@
     "externalDivision": "对外联络板块",
     "externalDesc": "搭建沟通桥梁。负责公共关系、赞助以及组织春晚等大型对外活动。",
     "executiveDivision": "执行策划板块",
-    "executiveDesc": "创意的引擎。负责财务、市场营销和媒体制作，扩大我们的影响力并确保可持续发展。"
+    "executiveDesc": "创意的引擎。负责财务、市场营销和媒体制作，扩大我们的影响力并确保可持续发展。",
+    "ourSponsors": "我们的赞助商",
+    "sponsorsSubtitle": "感谢我们赞助商的支持"
   },
   "About": {
     "title": "关于我们",

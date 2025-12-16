@@ -225,3 +225,14 @@ export interface DepartmentTeam {
   description_en?: string;
   members: TeamMember[];
 }
+
+export interface Sponsor {
+  id: number;
+  name: string;
+  logo: string;
+  promotional_image?: string | null;
+  promotional_text: string;
+  promotional_text_en?: string;
+  link: string;
+  order: number;
+}

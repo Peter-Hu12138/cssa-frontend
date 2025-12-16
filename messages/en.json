@@ -25,7 +25,9 @@
     "externalDivision": "External Division",
     "externalDesc": "Building bridges. Responsible for public relations, sponsorships, and organizing major external events like the Spring Gala.",
     "executiveDivision": "Executive Division",
-    "executiveDesc": "The creative engine. Handling finance, marketing, and media production to amplify our voice and ensure sustainability."
+    "executiveDesc": "The creative engine. Handling finance, marketing, and media production to amplify our voice and ensure sustainability.",
+    "ourSponsors": "Our Sponsors",
+    "sponsorsSubtitle": "Thank you to our sponsors for their support"
   },
   "About": {
     "title": "About Us",
