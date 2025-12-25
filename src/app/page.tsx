@@ -2,6 +2,7 @@ import HeroSection from "@/components/home/HeroSection";
 import GuideSection from "@/components/home/GuideSection";
 import DepartmentsSection from "@/components/home/DepartmentsSection";
 import EventList from "@/components/home/EventList";
+import SponsorsSection from "@/components/home/SponsorsSection";
 import { useTranslation as getServerTranslation } from "@/app/i18n";
 import { getLocale } from "@/app/i18n/server-utils";
 import { GraduationCap, Users, Briefcase } from "lucide-react";
@@ -60,6 +61,12 @@ export default async function Home() {
           <EventList />
         </div>
       </section>
+
+      <SponsorsSection 
+        title={t("ourSponsors")}
+        subtitle={t("sponsorsSubtitle")}
+        locale={locale}
+      />
     </main>
   );
 }
